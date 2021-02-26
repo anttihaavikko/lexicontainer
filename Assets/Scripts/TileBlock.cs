@@ -156,7 +156,7 @@ public class TileBlock : MonoBehaviour
         var ret = blocked || onGrid > 0 && offGrid > 0;
 
         if (ret && color)
-            SetOutlineColor(Color.red);
+            SetOutlineColor(theHand.red);
 
         return ret;
     }
@@ -177,7 +177,7 @@ public class TileBlock : MonoBehaviour
         });
 
         if(ok && color)
-            SetOutlineColor(Color.green);
+            SetOutlineColor(theHand.green);
 
         return ok;
     }

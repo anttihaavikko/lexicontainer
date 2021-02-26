@@ -4083,8 +4083,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288598255
-  m_fontColor: {r: 0.9372549, g: 0.8156863, b: 0.61960787, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5446,6 +5446,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   score: {fileID: 1439885489}
+  green: {r: 0.29411766, g: 0.7176471, b: 0.5907025, a: 1}
+  red: {r: 0.9245283, g: 0.28346387, b: 0.28346387, a: 1}
 --- !u!114 &691733150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6168,8 +6170,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288598255
-  m_fontColor: {r: 0.9372549, g: 0.8156863, b: 0.61960787, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11313,8 +11315,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288598255
-  m_fontColor: {r: 0.9372549, g: 0.8156863, b: 0.61960787, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

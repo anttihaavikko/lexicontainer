@@ -9,6 +9,7 @@ public class Hand : MonoBehaviour
     public WordDictionary dict;
     public LayerMask blockMask;
     public Score score;
+    public Color green, red;
 
     private List<float> columnsChecked, rowsChecked;
 
@@ -47,7 +48,7 @@ public class Hand : MonoBehaviour
         var uniques = marked.Distinct().ToList();
         Debug.Log("Clearing " + marked.Count + " (" + uniques.Count + ")");
         score.Add(uniques.Count);
-        uniques.ForEach(tile => tile.Boom());
+        uniques.ForEach(tile => tile.Boom(green));
         marked.Clear();
     }
     

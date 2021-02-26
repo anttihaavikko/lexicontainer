@@ -23,9 +23,9 @@ public class Tile : MonoBehaviour
         return letter;
     }
 
-    public void Boom()
+    public void Boom(Color color)
     {
-        letterText.color = Color.red;
+        letterText.color = color;
         Invoke(nameof(DoBoom), 2.5f);
     }
 
