@@ -31,6 +31,6 @@ public class SoundEffect : MonoBehaviour {
 	}
 
 	public void DoDestroy() {
-		Destroy (gameObject);
+        AudioManager.Instance.ReturnToPool(this);
 	}
 }

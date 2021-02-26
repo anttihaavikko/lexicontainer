@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour {
 
-	public GameObject[] effects;
+	public AutoEnd[] effects;
 
-	// ==================
+    [SerializeField]
+    private Queue<AutoEnd>[] effectPool;
 
-	private static EffectManager instance = null;
+    // ==================
+
+    private static EffectManager instance = null;
 
 	public static EffectManager Instance {
 		get { return instance; }
@@ -23,17 +27,56 @@ public class EffectManager : MonoBehaviour {
 		} else {
 			instance = this;
 		}
-	}
 
-	public GameObject AddEffect(int effect, Vector3 position) {
-		GameObject e = Instantiate (effects[effect], transform);
+        effectPool = new Queue<AutoEnd>[effects.Length];
+
+        for(var i = 0; i < effectPool.Length; i++)
+        {
+            effectPool[i] = new Queue<AutoEnd>();
+        }
+    }
+
+	public GameObject AddEffect(int effect, Vector3 position, float angle = 0f) {
+		var e = Get(effect);
+        e.transform.parent = transform;
 		e.transform.position = position;
-		return e;
+        e.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+		return e.gameObject;
 	}
 
 	public GameObject AddEffectToParent(int effect, Vector3 position, Transform parent) {
-		GameObject e = Instantiate (effects[effect], parent);
+        var e = Get(effect);
+        e.transform.parent = parent;
 		e.transform.position = position;
-		return e;
+		return e.gameObject;
 	}
+
+    private AutoEnd Get(int index)
+    {
+        if (!effectPool[index].Any())
+            AddObjects(index, 1);
+
+        var obj = effectPool[index].Dequeue();
+        obj.gameObject.SetActive(true);
+        obj.Start();
+        obj.GetParticleSystem().Play();
+
+        return obj;
+    }
+
+    private void AddObjects(int index, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            var obj = Instantiate(effects[index]);
+            obj.Pool = index;
+            effectPool[index].Enqueue(obj);
+        }
+    }
+
+    public void ReturnToPool(AutoEnd obj)
+    {
+        obj.gameObject.SetActive(false);
+        effectPool[obj.Pool].Enqueue(obj);
+    }
 }

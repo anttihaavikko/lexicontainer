@@ -16,12 +16,12 @@ public class SoundDesigner : EditorWindow
     [MenuItem("Window/SoundDesigner")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(SoundDesigner));
+        GetWindow(typeof(SoundDesigner));
     }
 
     public void FindAudioManager()
     {
-        am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        am = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
     }
 
     void OnGUI()
@@ -129,6 +129,12 @@ public class SoundDesigner : EditorWindow
 
     void Play(int i)
     {
+        if (EditorApplication.isPlaying)
+        {
+            am.PlayEffectAt(i, Vector3.zero, 1f);
+            return;
+        }
+
         var path = "Assets/Sounds/" + am.effects[i].name + ".wav";
         var c = (AudioClip)EditorGUIUtility.Load(path);
         PlayClip(c);

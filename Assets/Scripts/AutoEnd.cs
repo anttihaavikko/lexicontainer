@@ -5,6 +5,7 @@ public class AutoEnd : MonoBehaviour {
 
 	private ParticleSystem ps;
 
+    public int Pool { get; set; }
 
 	public void Start() 
 	{
@@ -17,8 +18,13 @@ public class AutoEnd : MonoBehaviour {
 		{
 			if(!ps.IsAlive())
 			{
-				Destroy(gameObject);
+                EffectManager.Instance.ReturnToPool(this);
 			}
 		}
 	}
+
+    public ParticleSystem GetParticleSystem()
+    {
+        return ps;
+    }
 }

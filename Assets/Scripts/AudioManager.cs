@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : ObjectPool<SoundEffect> {
 
 	public AudioSource curMusic;
 	public AudioSource[] musics;
 
 	public float volume = 0.5f;
 	private float musVolume = 0.5f;
-	public SoundEffect effectPrefab;
 	public AudioClip[] effects;
 
-	public AudioLowPassFilter lowpass;
-	public AudioHighPassFilter highpass;
+	private AudioLowPassFilter lowpass;
+	private AudioHighPassFilter highpass;
 
 	// private AudioReverbFilter reverb;
 	// private AudioReverbPreset fromReverb, toReverb;
@@ -56,16 +55,22 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public void Lowpass(bool state = true) {
+		if (!lowpass) lowpass = Camera.main.GetComponent<AudioLowPassFilter>();
+
 		doingLowpass = state;
 		doingHighpass = false;
 	}
 
 	public void Highpass(bool state = true) {
+		if (!highpass) highpass = Camera.main.GetComponent<AudioHighPassFilter>();
 		doingHighpass = state;
 		doingLowpass = false;
 	}
 
-	public void ChangeMusic(int next, float fadeOutDur, float fadeInDur, float startDelay) {
+	private void ChangeMusic(int next, float fadeOutDur, float fadeInDur, float startDelay)
+	{
+		if (musics[next] == curMusic) return;
+		
 		fadeOutPos = 0f;
 		fadeInPos = -1f;
 
@@ -98,12 +103,26 @@ public class AudioManager : MonoBehaviour {
 		float changeSpeed = 0.075f;
 
 		curMusic.pitch = Mathf.MoveTowards (curMusic.pitch, targetPitch, 0.005f * changeSpeed);
-		lowpass.cutoffFrequency = Mathf.MoveTowards (lowpass.cutoffFrequency, targetLowpass, 750f * changeSpeed);
-		highpass.cutoffFrequency = Mathf.MoveTowards (highpass.cutoffFrequency, targetHighpass, 50f * changeSpeed);
+		if(lowpass) lowpass.cutoffFrequency = Mathf.MoveTowards (lowpass.cutoffFrequency, targetLowpass, 750f * changeSpeed);
+		if (highpass) highpass.cutoffFrequency = Mathf.MoveTowards (highpass.cutoffFrequency, targetHighpass, 50f * changeSpeed);
+		
+		if (fadeInPos < 1f) fadeInPos += Time.unscaledDeltaTime / fadeInDuration;
+
+		if (fadeOutPos < 1f) fadeOutPos += Time.unscaledDeltaTime / fadeOutDuration;
+
+		if (curMusic && fadeInPos >= 0f) curMusic.volume = Mathf.Lerp(0f, musVolume * 1.5f, fadeInPos);
+
+		if (prevMusic)
+		{
+			prevMusic.volume = Mathf.Lerp(musVolume, 0f, fadeOutPos);
+
+			if (prevMusic.volume <= 0f) prevMusic.Stop();
+		}
 	}
 
 	public void PlayEffectAt(AudioClip clip, Vector3 pos, float volume, bool pitchShift = true) {
-		SoundEffect se = Instantiate (effectPrefab, pos, Quaternion.identity);
+		SoundEffect se = Get();
+        se.transform.position = pos;
 		se.Play (clip, volume, pitchShift);
 		se.transform.parent = transform;
 	}
@@ -123,5 +142,24 @@ public class AudioManager : MonoBehaviour {
 	public void ChangeMusicVolume(float vol) {
 		curMusic.volume = vol * 1.5f;
 		musVolume = vol * 1.5f;
+	}
+
+	public void ToMenu()
+	{
+		ChangeMusic(1, 0.2f, 0.2f, 0f);
+	}
+
+	public void ToMain()
+	{
+		ChangeMusic(0, 0.2f, 0.2f, 0f);
+	}
+
+	public static void BaseSound(Vector3 p, float vol = 1f)
+	{
+		Instance.PlayEffectAt(4, p, 0.212f * vol);
+		Instance.PlayEffectAt(22, p, 0.277f * vol);
+		Instance.PlayEffectAt(24, p, 0.644f * vol);
+		Instance.PlayEffectAt(9, p, 0.286f * vol);
+		Instance.PlayEffectAt(0, p, 4f * vol);
 	}
 }
