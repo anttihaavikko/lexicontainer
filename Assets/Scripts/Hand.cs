@@ -7,14 +7,17 @@ public class Hand : MonoBehaviour
 {
     public List<TileBlock> blockPrefabs;
     public WordDictionary dict;
-    public LayerMask blockMask;
+    public LayerMask blockMask, gridMask;
     public Score score;
     public Color green, red;
+    public Transform gridFirst;
+    public Appearer gameOver;
 
     private List<float> columnsChecked, rowsChecked;
 
     private List<Tile> marked;
     private int checks;
+    private IEnumerator endCheck;
     
     private void Start()
     {
@@ -24,11 +27,15 @@ public class Hand : MonoBehaviour
         Spawn();
     }
 
-    public void Spawn()
+    private void Spawn()
     {
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, transform.position, Quaternion.identity);
         b.Setup(this, dict);
+        
+        if(endCheck != null) StopCoroutine(endCheck);
+        endCheck = CheckForEnd(b);
+        StartCoroutine(endCheck);
     }
 
     public void ClearCheckMemory()
@@ -46,10 +53,47 @@ public class Hand : MonoBehaviour
     {
         while (checks > 0) yield return 0;
         var uniques = marked.Distinct().ToList();
-        Debug.Log("Clearing " + marked.Count + " (" + uniques.Count + ")");
         score.Add(uniques.Count);
         uniques.ForEach(tile => tile.Boom(green));
         marked.Clear();
+        Invoke(nameof(Spawn), uniques.Any() ? 1f : 0.1f);
+    }
+
+    IEnumerator CheckForEnd(TileBlock block)
+    {
+        var points = block.tiles.Where(t => !t.isDecoration).Select(t => t.transform.position - transform.position).ToList();
+        var origin = gridFirst.position;
+        
+        for (var y = 0; y < 8; y++)
+        {
+            for (var x = 0; x < 10; x++)
+            {
+                var p = origin + new Vector3(x, -y, 0);
+
+                if(points.All(point => PointIsOk(point + p)))
+                {
+                    yield break;
+                }
+
+                yield return 0;
+            }
+            
+            yield return 0;
+        }
+
+        this.StartCoroutine(() => gameOver.Show(), 2f);
+    }
+
+    private bool PointIsOk(Vector3 p)
+    {
+        var gridHere = Physics2D.OverlapCircle(p, 0.1f, gridMask);
+        var blockHere = Physics2D.OverlapCircle(p, 0.1f, blockMask);
+
+        var ok = gridHere && !blockHere;
+        
+        // Debug.DrawRay(p, Vector3.up * 0.2f, ok ? Color.black : Color.white, 0.1f);
+        
+        return ok;
     }
     
     IEnumerator CheckTrack(List<Tile> tiles)

@@ -82,9 +82,7 @@ public class TileBlock : MonoBehaviour
             var snapPos = new Vector3(Mathf.Round(p.x) + 0.5f * signs.x, Mathf.Round(p.y) + 0.5f * signs.y, Mathf.Round(p.z));
 
             Tweener.Instance.MoveTo(transform, snapPos, 0.12f, 0f, TweenEasings.BounceEaseOut);
-            
-            theHand.Spawn();
-            
+
             Invoke("AfterMouseUp", 0.12f);
             return;
         }
