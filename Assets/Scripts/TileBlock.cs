@@ -104,6 +104,7 @@ public class TileBlock : MonoBehaviour
         sortingGroup.sortingOrder = 0;
         theHand.ClearCheckMemory();
         tiles.Where(tile => !tile.isDecoration).ToList().ForEach(tile => theHand.Check(tile));
+        theHand.StartWait();
     }
 
     public void HoverOut()

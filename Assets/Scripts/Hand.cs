@@ -8,11 +8,16 @@ public class Hand : MonoBehaviour
     public List<TileBlock> blockPrefabs;
     public WordDictionary dict;
     public LayerMask blockMask;
+    public Score score;
 
     private List<float> columnsChecked, rowsChecked;
+
+    private List<Tile> marked;
+    private int checks;
     
     private void Start()
     {
+        marked = new List<Tile>();
         columnsChecked = new List<float>();
         rowsChecked = new List<float>();
         Spawn();
@@ -29,6 +34,21 @@ public class Hand : MonoBehaviour
     {
         columnsChecked.Clear();
         rowsChecked.Clear();
+    }
+
+    public void StartWait()
+    {
+        StartCoroutine(WaitForAll());
+    }
+
+    IEnumerator WaitForAll()
+    {
+        while (checks > 0) yield return 0;
+        var uniques = marked.Distinct().ToList();
+        Debug.Log("Clearing " + marked.Count + " (" + uniques.Count + ")");
+        score.Add(uniques.Count);
+        uniques.ForEach(tile => tile.Boom());
+        marked.Clear();
     }
     
     IEnumerator CheckTrack(List<Tile> tiles)
@@ -55,12 +75,10 @@ public class Hand : MonoBehaviour
 
                         // BoomCards(start, len);
                         
-                        tiles.GetRange(start, len).ForEach(tile => tile.Boom());
+                        marked.AddRange(tiles.GetRange(start, len));
 
                         found = true;
                         // totalWords++;
-
-                        Debug.Log("Found " + word);
 
                         break;
                     }
@@ -76,6 +94,8 @@ public class Hand : MonoBehaviour
             }
         }
 
+        checks--;
+
         //Debug.Log("Took " + total);
     }
 
@@ -89,12 +109,14 @@ public class Hand : MonoBehaviour
         {
             CheckAxis(tile, Vector3.left, Vector3.right);
             columnsChecked.Add(y);
+            checks++;
         }
         
         if (!rowsChecked.Contains(x))
         {
             CheckAxis(tile, Vector3.up, Vector3.down);
             rowsChecked.Add(x);
+            checks++;
         }
     }
 
