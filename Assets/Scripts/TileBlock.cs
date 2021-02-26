@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public class TileBlock : MonoBehaviour
 {
     public List<Tile> tiles;
     public LayerMask gridMask, hitMask;
     public SortingGroup sortingGroup;
+    public List<float> angles;
     
     private bool holding;
     private Vector3 prevPos;
-    private float checkRadius = 0.3f;
+    private float checkRadius = 0.4f;
     private Vector3 offset;
     private Hand theHand;
     private Camera cam;
@@ -31,7 +33,7 @@ public class TileBlock : MonoBehaviour
             var mp = Input.mousePosition;
             mp.z = 10f;
             var mouseInWorld = cam.ScreenToWorldPoint(mp);
-
+            
             transform.position = mouseInWorld + offset;
 
             HoverOut();
@@ -43,6 +45,9 @@ public class TileBlock : MonoBehaviour
     public void Setup(Hand hand)
     {
         theHand = hand;
+        var angle = angles[Random.Range(0, angles.Count)];
+        transform.Rotate(new Vector3(0, 0, angle));
+        tiles.ForEach(tile => tile.transform.Rotate(new Vector3(0, 0, -angle)));
     }
 
     public void Drop()
@@ -68,7 +73,9 @@ public class TileBlock : MonoBehaviour
             
             var gridPos = Physics2D.OverlapCircleAll(transform.position, checkRadius, gridMask);
             var p = transform.position;
-            var snapPos = new Vector3(Mathf.Round(p.x * 2f) * 0.5f, Mathf.Round(p.y * 2f) * 0.5f, Mathf.Round(p.z));
+            var rounded = new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
+            var signs = new Vector2(Mathf.Sign(p.x - rounded.x), Mathf.Sign(p.y - rounded.y));
+            var snapPos = new Vector3(Mathf.Round(p.x) + 0.5f * signs.x, Mathf.Round(p.y) + 0.5f * signs.y, Mathf.Round(p.z));
 
             Tweener.Instance.MoveTo(transform, snapPos, 0.12f, 0f, TweenEasings.BounceEaseOut);
             
