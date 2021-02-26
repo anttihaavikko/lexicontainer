@@ -12,7 +12,7 @@ public class TileBlock : MonoBehaviour
     public LayerMask gridMask, hitMask;
     public SortingGroup sortingGroup;
     public List<float> angles;
-    
+
     private bool holding;
     private Vector3 prevPos;
     private float checkRadius = 0.4f;
@@ -42,12 +42,16 @@ public class TileBlock : MonoBehaviour
         }
     }
 
-    public void Setup(Hand hand)
+    public void Setup(Hand hand, WordDictionary dict)
     {
         theHand = hand;
         var angle = angles[Random.Range(0, angles.Count)];
         transform.Rotate(new Vector3(0, 0, angle));
-        tiles.ForEach(tile => tile.transform.Rotate(new Vector3(0, 0, -angle)));
+        tiles.ForEach(tile =>
+        {
+            tile.transform.Rotate(new Vector3(0, 0, -angle));
+            if(!tile.isDecoration) tile.SetLetter(dict.GetRandomLetter());
+        });
     }
 
     public void Drop()
@@ -98,6 +102,8 @@ public class TileBlock : MonoBehaviour
     private void AfterMouseUp()
     {
         sortingGroup.sortingOrder = 0;
+        theHand.ClearCheckMemory();
+        tiles.Where(tile => !tile.isDecoration).ToList().ForEach(tile => theHand.Check(tile));
     }
 
     public void HoverOut()

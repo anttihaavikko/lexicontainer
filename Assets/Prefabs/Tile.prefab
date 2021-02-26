@@ -536,6 +536,7 @@ MonoBehaviour:
   isDecoration: 0
   connectors: []
   focus: {fileID: 4329857327483903053}
+  letterText: {fileID: 3042804575465880498}
 --- !u!61 &7659883209884130288
 BoxCollider2D:
   m_ObjectHideFlags: 0

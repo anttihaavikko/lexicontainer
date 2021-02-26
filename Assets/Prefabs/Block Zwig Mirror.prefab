@@ -137,6 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03772073bd27244ed83731643148f445, type: 3}
+--- !u!1 &9205037333943792117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2795506285917762657, guid: 03772073bd27244ed83731643148f445, type: 3}
+  m_PrefabInstance: {fileID: 6446197567227315604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9205037333943792119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2795506285917762659, guid: 03772073bd27244ed83731643148f445, type: 3}
@@ -147,7 +152,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6195216683200590544, guid: 03772073bd27244ed83731643148f445, type: 3}
   m_PrefabInstance: {fileID: 6446197567227315604}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9205037333943792117}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc69f3e5426b147e1aae534d4f5b2221, type: 3}
@@ -210,6 +215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03772073bd27244ed83731643148f445, type: 3}
+--- !u!1 &9205037333982265672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2795506285917762657, guid: 03772073bd27244ed83731643148f445, type: 3}
+  m_PrefabInstance: {fileID: 6446197567306282281}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9205037333982265674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2795506285917762659, guid: 03772073bd27244ed83731643148f445, type: 3}
@@ -220,7 +230,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6195216683200590544, guid: 03772073bd27244ed83731643148f445, type: 3}
   m_PrefabInstance: {fileID: 6446197567306282281}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9205037333982265672}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc69f3e5426b147e1aae534d4f5b2221, type: 3}
@@ -285,6 +295,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[0]
+      value: 
+      objectReference: {fileID: 9205037333943792117}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
 --- !u!4 &7305894971059540439 stripped
@@ -362,6 +380,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[0]
+      value: 
+      objectReference: {fileID: 9205037333515379162}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[1]
+      value: 
+      objectReference: {fileID: 9205037333943792117}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
 --- !u!4 &7305894970724113877 stripped
@@ -439,6 +469,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[0]
+      value: 
+      objectReference: {fileID: 9205037333982265672}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[1]
+      value: 
+      objectReference: {fileID: 9205037333515379162}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
 --- !u!4 &7305894970747070431 stripped
@@ -514,6 +556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03772073bd27244ed83731643148f445, type: 3}
+--- !u!1 &9205037333515379162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2795506285917762657, guid: 03772073bd27244ed83731643148f445, type: 3}
+  m_PrefabInstance: {fileID: 6446197567907386811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9205037333515379160 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2795506285917762659, guid: 03772073bd27244ed83731643148f445, type: 3}
@@ -524,7 +571,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6195216683200590544, guid: 03772073bd27244ed83731643148f445, type: 3}
   m_PrefabInstance: {fileID: 6446197567907386811}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9205037333515379162}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc69f3e5426b147e1aae534d4f5b2221, type: 3}
@@ -589,6 +636,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702903842521102483, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
+      propertyPath: connectors.Array.data[0]
+      value: 
+      objectReference: {fileID: 9205037333982265672}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a71e4e152224a0fa5f5fd90566228c, type: 3}
 --- !u!4 &6446197566787556684 stripped
