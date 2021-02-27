@@ -69,7 +69,7 @@ public class Hand : MonoBehaviour
         
         Tweener.Instance.MoveTo(b.transform, position + b.handOffset, 0.2f, 0f, TweenEasings.BounceEaseOut);
         
-        DoEndCheck();
+        Invoke(nameof(DoEndCheck), 0.5f);
     }
 
     private void DoEndCheck()
@@ -164,7 +164,7 @@ public class Hand : MonoBehaviour
             AudioManager.Instance.PlayEffectAt(11, Vector3.zero, 0.5f);
             gameOver.Show();
             AudioManager.Instance.targetPitch = 0.8f;
-        }, 1f);
+        }, 0.7f);
     }
 
     private bool PointIsOk(Vector3 p)
