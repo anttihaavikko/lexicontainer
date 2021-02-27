@@ -82,11 +82,15 @@ public class Hand : MonoBehaviour
             this.StartCoroutine(() => cam.BaseEffect(Mathf.Min(uniques.Count * 0.05f, 10f)), Tile.boomDelay);
 
             var w = words.OrderBy(_ => Random.value).First();
-            Debug.Log("Random one: " + w);
+            // Debug.Log("Random one: " + w);
             definer.DefineWord(w);
 
             var soundPos = uniques.First().transform.position;
             AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), soundPos, 2f);
+            
+            AudioManager.Instance.targetPitch = 1.1f;
+            this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
+
         }
         marked.Clear();
         words.Clear();
@@ -117,7 +121,12 @@ public class Hand : MonoBehaviour
             yield return 0;
         }
 
-        this.StartCoroutine(() => gameOver.Show(), 2f);
+        this.StartCoroutine(() =>
+        {
+            AudioManager.Instance.PlayEffectAt(11, Vector3.zero, 0.5f);
+            gameOver.Show();
+            AudioManager.Instance.targetPitch = 0.8f;
+        }, 2f);
     }
 
     private bool PointIsOk(Vector3 p)

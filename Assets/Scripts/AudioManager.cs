@@ -28,6 +28,8 @@ public class AudioManager : ObjectPool<SoundEffect> {
 	/******/
 
 	private static AudioManager instance = null;
+	public float targetPitch = 1f;
+
 	public static AudioManager Instance {
 		get { return instance; }
 	}
@@ -96,13 +98,11 @@ public class AudioManager : ObjectPool<SoundEffect> {
 	}
 
 	void Update() {
-
-		float targetPitch = 1f;
 		float targetLowpass = (doingLowpass) ? 5000f : 22000;
 		float targetHighpass = (doingHighpass) ? 400f : 10f;
 		float changeSpeed = 0.075f;
 
-		curMusic.pitch = Mathf.MoveTowards (curMusic.pitch, targetPitch, 0.005f * changeSpeed);
+		curMusic.pitch = Mathf.MoveTowards (curMusic.pitch, targetPitch, 0.02f * changeSpeed);
 		if(lowpass) lowpass.cutoffFrequency = Mathf.MoveTowards (lowpass.cutoffFrequency, targetLowpass, 750f * changeSpeed);
 		if (highpass) highpass.cutoffFrequency = Mathf.MoveTowards (highpass.cutoffFrequency, targetHighpass, 50f * changeSpeed);
 		
