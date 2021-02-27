@@ -59,16 +59,6 @@ public class TileBlock : MonoBehaviour
         holding = false;
         SetOutlineColor(Color.white);
 
-        var blocked = CheckBlocking(false);
-
-        if (blocked)
-        {
-            Tweener.Instance.MoveTo(transform, prevPos, 0.15f, 0f, TweenEasings.BounceEaseOut);
-            Invoke("AfterMouseUp", 0.15f);
-
-            return;
-        }
-
         var ok = CheckValidity(false);
 
         if(ok)
@@ -87,9 +77,7 @@ public class TileBlock : MonoBehaviour
             return;
         }
         
-        prevPos = transform.localPosition;
-
-        AfterMouseUp();
+        Tweener.Instance.MoveTo(transform, prevPos, 0.15f, 0f, TweenEasings.BounceEaseOut);
     }
 
     private void SetOutlineColor(Color color)
