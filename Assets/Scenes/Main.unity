@@ -1267,6 +1267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 125806594}
+  - component: {fileID: 125806595}
   m_Layer: 0
   m_Name: Score Manager
   m_TagString: Untagged
@@ -1288,6 +1289,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125806595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125806593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43ae22459f014753a8bc8cc75fc8345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameName: wowie
+  perPage: 10
+  leaderBoardString: 
+  localScoreString: 
+  leaderBoardPositionsString: 
+  leaderBoardScoresString: 
+  endReached: 0
+  personalBestPos: 
+  personalBestScore: 
 --- !u!1 &143000400
 GameObject:
   m_ObjectHideFlags: 0
@@ -11442,6 +11464,7 @@ MonoBehaviour:
   multi: {fileID: 1565310737}
   addition: {fileID: 850841994}
   additionAppearer: {fileID: 850841997}
+  scoreManager: {fileID: 125806595}
 --- !u!4 &1439885490
 Transform:
   m_ObjectHideFlags: 0

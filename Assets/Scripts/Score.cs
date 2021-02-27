@@ -9,10 +9,13 @@ public class Score : MonoBehaviour
     public Pulsater pulsater, multiPulsater;
     public TMP_Text display, multi, addition;
     public Appearer additionAppearer;
+    public ScoreManager scoreManager;
     
     private int score;
     private float shownScore;
     private int multiplier = 1;
+
+    private int moves;
 
     // Update is called once per frame
     void Update()
@@ -40,8 +43,24 @@ public class Score : MonoBehaviour
         multi.text = "x" + multiplier;
     }
 
+    public void UploadScore()
+    {
+        GenerateIdIfNeeded();
+        scoreManager.SubmitScore("Antti", score, moves, PlayerPrefs.GetString("Identifier"));
+    }
+
+    private static void GenerateIdIfNeeded()
+    {
+        if (!PlayerPrefs.HasKey("Identifier"))
+        {
+            PlayerPrefs.SetString("Identifier", System.Guid.NewGuid().ToString());
+        }
+    }
+
     public void Add(int amount)
     {
+        moves++;
+        
         if (amount == 0)
         {
             AddMulti();
@@ -66,10 +85,5 @@ public class Score : MonoBehaviour
         var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
         nfi.NumberGroupSeparator = " ";
         return shownScore.ToString("#,0", nfi);
-    }
-
-    public int GetTotal()
-    {
-        return score;
     }
 }

@@ -123,6 +123,7 @@ public class Hand : MonoBehaviour
 
         this.StartCoroutine(() =>
         {
+            score.UploadScore();
             AudioManager.Instance.PlayEffectAt(11, Vector3.zero, 0.5f);
             gameOver.Show();
             AudioManager.Instance.targetPitch = 0.8f;
