@@ -34,7 +34,12 @@ public class Hand : MonoBehaviour
         marked = new List<Tile>();
         columnsChecked = new List<float>();
         rowsChecked = new List<float>();
-        Spawn();
+
+        this.StartCoroutine(() =>
+        {
+            if (!dude || !dude.HasSomething()) Spawn();
+        }, 1f);
+
     }
 
     private void Update()
@@ -51,7 +56,7 @@ public class Hand : MonoBehaviour
         SceneChanger.Instance.ChangeScene(scene);
     }
 
-    private void Spawn()
+    public void Spawn()
     {
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, transform.position, Quaternion.identity);
@@ -100,11 +105,29 @@ public class Hand : MonoBehaviour
 
             // AudioManager.Instance.targetPitch = 1.1f;
             // this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
-
         }
         marked.Clear();
         words.Clear();
-        Invoke(nameof(Spawn), uniques.Any() ? 2.5f : 0.3f);
+
+        this.StartCoroutine(() =>
+        {
+            if (uniques.Any())
+            {
+                dude.ShowTutorial(Tutorial.Word);
+                dude.ShowTutorial(Tutorial.MultiReset);
+            }
+            else
+            {
+                dude.ShowTutorial(Tutorial.Multiplier);
+                dude.ShowTutorial(Tutorial.Three);
+            }
+
+            if (!dude.HasSomething())
+            {
+                Spawn();
+            }
+            
+        }, uniques.Any() ? 2.5f : 0.3f);
     }
 
     IEnumerator CheckForEnd(TileBlock block)

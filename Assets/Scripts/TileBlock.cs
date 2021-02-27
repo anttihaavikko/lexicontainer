@@ -21,7 +21,7 @@ public class TileBlock : MonoBehaviour
     private Hand theHand;
     private Camera cam;
 
-    private void Start()
+    private void Awake()
     {
         cam = Camera.main;
         prevPos = transform.position;
