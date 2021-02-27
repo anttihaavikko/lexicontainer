@@ -31,6 +31,11 @@ public class Tile : MonoBehaviour
 
     private void DoBoom()
     {
+        var p = transform.position;
+        EffectManager.Instance.AddEffect(0, p);
+        var e = EffectManager.Instance.AddEffect(1, p);
+        e.transform.Rotate(new Vector3(0, 0, Random.Range(0, 360f)));
+        
         connectors.ForEach(c => c.SetActive(false));
         gameObject.SetActive(false);
     }
