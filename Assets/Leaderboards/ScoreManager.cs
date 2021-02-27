@@ -97,7 +97,7 @@ public class ScoreManager : MonoBehaviour {
 
     IEnumerator DoLoadLeaderBoards(int p) {
 
-		// FlagManager.Instance.HideAllFlags ();
+		FlagManager.Instance.HideAllFlags ();
 
         var www = UnityWebRequest.Get("https://games.sahaqiel.com/leaderboards/load-scores.php?amt=" + perPage + "&p=" + p + "&game=" + gameName);
         www.certificateHandler = certHandler;
@@ -114,9 +114,9 @@ public class ScoreManager : MonoBehaviour {
 			if (data.scores.Length > 0) {
 				for (int i = 0; i < data.scores.Length; i++) {
 					leaderBoardString += FormatLeaderboardRow (data.scores [i].position, data.scores [i].name, long.Parse (data.scores [i].score), data.scores [i].pid);
-					// FlagManager.Instance.SetPositionFlag (i, lb.scores [i].locale);
+					FlagManager.Instance.SetPositionFlag (i, data.scores [i].locale);
                     leaderBoardPositionsString += data.scores[i].position + ". " + data.scores[i].name + "\n";
-                    leaderBoardScoresString += data.scores[i].score + "\n";
+                    leaderBoardScoresString += Score.ScoreString(int.Parse(data.scores[i].score)) + "\n";
 				}
 			}
 

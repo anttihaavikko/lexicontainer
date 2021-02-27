@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -17,12 +18,16 @@ public class Score : MonoBehaviour
 
     private int moves;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        Debug.Log("Player is " + PlayerPrefs.GetString("PlayerName"));
+    }
+
+    private void Update()
     {
         var scrollSpeed = Mathf.Max(10f, score - shownScore);
         shownScore = Mathf.MoveTowards(shownScore, score, Time.deltaTime * scrollSpeed * 2f);
-        display.text = ScoreString();
+        display.text = ScoreString(score);
     }
 
     private void AddMulti()
@@ -46,7 +51,7 @@ public class Score : MonoBehaviour
     public void UploadScore()
     {
         GenerateIdIfNeeded();
-        scoreManager.SubmitScore("Antti", score, moves, PlayerPrefs.GetString("Identifier"));
+        scoreManager.SubmitScore(PlayerPrefs.GetString("PlayerName"), score, moves, PlayerPrefs.GetString("Identifier"));
     }
 
     private static void GenerateIdIfNeeded()
@@ -80,10 +85,10 @@ public class Score : MonoBehaviour
         }, 2f);
     }
 
-    public string ScoreString()
+    public static string ScoreString(float score)
     {
         var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
         nfi.NumberGroupSeparator = " ";
-        return shownScore.ToString("#,0", nfi);
+        return score.ToString("#,0", nfi);
     }
 }

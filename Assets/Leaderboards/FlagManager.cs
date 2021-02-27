@@ -3,15 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlagManager {
+public class FlagManager : MonoBehaviour {
 
-	public static void SetFlag(RawImage image, string country) {
+	public RawImage[] flags;
 
-		var vec = GetFlagCoordinates (country);
-		var r = image.uvRect;
-		r.x = vec.x / 15;
-		r.y = 1 - (vec.y + 1) / 15;
-		image.uvRect = r;
+	/******/
+
+	private static FlagManager instance = null;
+	public static FlagManager Instance {
+		get { return instance; }
+	}
+
+	void Awake() {
+		if (instance != null && instance != this) {
+			Destroy (this.gameObject);
+			return;
+		} else {
+			instance = this;
+		}
+	}
+
+	public void HideAllFlags() {
+		for (int i = 0; i < flags.Length; i++) {
+			flags [i].enabled = false;
+		}
+	}
+
+	public void SetPositionFlag(int pos, string country) {
+
+		Vector2 vec = GetFlagCoordinates (country);
+
+		if(pos < flags.Length && vec != Vector2.left) {
+			Rect r = flags [pos].uvRect;
+            r.x = vec.x / 15;
+            r.y = 1 - (vec.y + 1) / 15;
+			flags [pos].uvRect = r;
+
+			flags [pos].enabled = true;
+		}
 	}
 
 	public static Vector2 GetFlagCoordinates(string country) {

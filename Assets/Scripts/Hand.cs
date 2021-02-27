@@ -16,6 +16,7 @@ public class Hand : MonoBehaviour
     public Appearer gameOver;
     public EffectCamera cam;
     public WordDefiner definer;
+    public bool canAct = true;
 
     private List<float> columnsChecked, rowsChecked;
 
@@ -25,7 +26,7 @@ public class Hand : MonoBehaviour
     private TileBlock current;
 
     private List<string> words;
-    
+
     private void Start()
     {
         words = new List<string>();
@@ -43,12 +44,20 @@ public class Hand : MonoBehaviour
         }
     }
 
+    public void ToScene(string scene)
+    {
+        AudioManager.Instance.targetPitch = 1f;
+        SceneChanger.Instance.ChangeScene(scene);
+    }
+
     private void Spawn()
     {
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, transform.position, Quaternion.identity);
         b.Setup(this, dict);
         current = b;
+
+        if (!canAct) return;
         
         DoEndCheck();
     }
