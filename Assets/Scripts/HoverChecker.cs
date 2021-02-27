@@ -8,12 +8,15 @@ public class HoverChecker : MonoBehaviour
 {
     public LayerMask blockMask;
     public TileBlock heldBlock;
+    public Texture2D defaultCursor, handCursor, grabCursor;
 
     private Camera cam;
     private TileBlock hoveredBlock;
+    private Vector2 hotSpot = new Vector3(32f, 32f);
     
     private void Start()
     {
+        hotSpot = new Vector2(defaultCursor.width / 2f, defaultCursor.height / 2f);
         cam = Camera.main;
     }
 
@@ -26,6 +29,7 @@ public class HoverChecker : MonoBehaviour
 
         if (heldBlock && Input.GetMouseButtonUp(0))
         {
+            Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
             heldBlock.Drop();
 
             var colliders = heldBlock.GetComponents<Collider2D>();
@@ -52,11 +56,14 @@ public class HoverChecker : MonoBehaviour
             if(hoveredBlock)
             {
                 hoveredBlock.HoverIn();
+                
+                Cursor.SetCursor(handCursor, hotSpot, CursorMode.Auto);
 
                 if(Input.GetMouseButtonDown(0))
                 {
                     heldBlock = hoveredBlock;
                     heldBlock.Grab();
+                    Cursor.SetCursor(grabCursor, hotSpot, CursorMode.Auto);
                 }
             }
 
@@ -66,41 +73,10 @@ public class HoverChecker : MonoBehaviour
         {
             if(hoveredBlock)
             {
+                if(!heldBlock) Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
                 hoveredBlock.HoverOut();
                 hoveredBlock = null;
             }
         }
-    //
-    //     if (defaultCharacter) return;
-    //
-    //     var charHits = Physics2D.OverlapCircleAll(mouseInWorld, radius, characterMask);
-    //
-    //     if (charHits.Length == 1 && hoveredBlock == null)
-    //     {
-    //         var prev = hoveredChar;
-    //         hoveredChar = charHits.First().GetComponent<CharacterInfo>();
-    //
-    //         if (prev && hoveredChar != prev)
-    //         {
-    //             prev.HoverOut();
-    //
-    //         }
-    //
-    //         if (hoveredChar)
-    //         {
-				// hoveredChar.HoverIn();
-				// ShowDefault();
-    //         }
-    //
-    //         return;
-    //     }
-    //     else
-    //     {
-    //         if(hoveredChar)
-    //         {
-    //             hoveredChar.HoverOut();
-    //             hoveredChar = null;
-    //         }
-    //     }
     }
 }
