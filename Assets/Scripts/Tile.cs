@@ -39,5 +39,12 @@ public class Tile : MonoBehaviour
 
         connectors.ForEach(c => c.SetActive(false));
         gameObject.SetActive(false);
+
+        const float vol = 0.7f;
+        AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), p, 1.1f * vol);
+        AudioManager.Instance.PlayEffectAt(8, p, 1.429f * vol);
+        AudioManager.Instance.PlayEffectAt(9, p, 1.707f * vol);
+        AudioManager.Instance.PlayEffectAt(10, p, 0.6f * vol);
+
     }
 }
