@@ -61,7 +61,7 @@ public class WordDictionary : MonoBehaviour
         return letter;
     }
 
-    string RandomWord()
+    public string RandomWord()
     {
         var key = words.Keys.ToArray()[Random.Range(0, words.Count)];
         var word = words[key];

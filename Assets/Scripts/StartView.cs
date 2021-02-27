@@ -7,6 +7,8 @@ public class StartView : MonoBehaviour
 {
     public ScoreManager scoreManager;
     public TMP_Text leaderboardNames, leaderboardScores;
+    public TMP_Text wotd;
+    public WordDictionary dict;
 
     private int page;
     
@@ -15,6 +17,8 @@ public class StartView : MonoBehaviour
     {
         scoreManager.onLoaded += ScoresLoaded;
         scoreManager.LoadLeaderBoards(page);
+
+        wotd.text = dict.RandomWord();
     }
 
     private void ScoresLoaded()
