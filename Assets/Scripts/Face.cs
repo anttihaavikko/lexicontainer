@@ -281,7 +281,7 @@ public class Face : MonoBehaviour {
 
 	private void CloseMouth()
 	{
-		mouthSprite.enabled = true;
 		Tweener.Instance.ScaleTo(openMouth, Vector3.zero, 0.1f, 0, TweenEasings.QuadraticEaseOut);
+		this.StartCoroutine(() => mouthSprite.enabled = true, 0.1f);
 	}
 }
