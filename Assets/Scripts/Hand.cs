@@ -17,6 +17,7 @@ public class Hand : MonoBehaviour
     public EffectCamera cam;
     public WordDefiner definer;
     public bool canAct = true;
+    public Dude dude;
 
     private List<float> columnsChecked, rowsChecked;
 
@@ -95,8 +96,8 @@ public class Hand : MonoBehaviour
             definer.DefineWord(w);
 
             var soundPos = uniques.First().transform.position;
-            AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), soundPos, 2f);
-            
+            dude.NiceAt(-soundPos.x, soundPos.y > 0);
+
             // AudioManager.Instance.targetPitch = 1.1f;
             // this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
 
