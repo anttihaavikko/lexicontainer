@@ -274,12 +274,14 @@ public class Face : MonoBehaviour {
 	
 	public void OpenMouth(float closeAfter)
 	{
+		mouthSprite.enabled = false;
 		Tweener.Instance.ScaleTo(openMouth, openMouthSize, 0.1f, 0, TweenEasings.BounceEaseOut);
 		Invoke(nameof(CloseMouth), closeAfter);
 	}
 
 	private void CloseMouth()
 	{
+		mouthSprite.enabled = true;
 		Tweener.Instance.ScaleTo(openMouth, Vector3.zero, 0.1f, 0, TweenEasings.QuadraticEaseOut);
 	}
 }
