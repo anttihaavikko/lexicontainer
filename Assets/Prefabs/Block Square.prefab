@@ -72,6 +72,7 @@ MonoBehaviour:
   sortingGroup: {fileID: 2543615288888471547}
   angles:
   - 0
+  handOffset: {x: -0.5, y: -0.5, z: 0}
 --- !u!210 &2543615288888471547
 SortingGroup:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Hand : MonoBehaviour
 {
@@ -13,19 +15,32 @@ public class Hand : MonoBehaviour
     public Transform gridFirst;
     public Appearer gameOver;
     public EffectCamera cam;
+    public WordDefiner definer;
 
     private List<float> columnsChecked, rowsChecked;
 
     private List<Tile> marked;
     private int checks;
     private IEnumerator endCheck;
+    private TileBlock current;
+
+    private List<string> words;
     
     private void Start()
     {
+        words = new List<string>();
         marked = new List<Tile>();
         columnsChecked = new List<float>();
         rowsChecked = new List<float>();
         Spawn();
+    }
+
+    private void Update()
+    {
+        if (Application.isEditor)
+        {
+            if(Input.GetKeyDown(KeyCode.Q)) DoEndCheck();
+        }
     }
 
     private void Spawn()
@@ -33,9 +48,15 @@ public class Hand : MonoBehaviour
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, transform.position, Quaternion.identity);
         b.Setup(this, dict);
+        current = b;
         
-        if(endCheck != null) StopCoroutine(endCheck);
-        endCheck = CheckForEnd(b);
+        DoEndCheck();
+    }
+
+    private void DoEndCheck()
+    {
+        if (endCheck != null) StopCoroutine(endCheck);
+        endCheck = CheckForEnd(current);
         StartCoroutine(endCheck);
     }
 
@@ -58,15 +79,20 @@ public class Hand : MonoBehaviour
         if (uniques.Any())
         {
             uniques.ForEach(tile => tile.Boom(green));
-            this.StartCoroutine(() => cam.BaseEffect(Mathf.Min(uniques.Count * 0.05f, 10f)), Tile.boomDelay);   
+            this.StartCoroutine(() => cam.BaseEffect(Mathf.Min(uniques.Count * 0.05f, 10f)), Tile.boomDelay);
+
+            var w = words.OrderBy(_ => Random.value).First();
+            Debug.Log("Random one: " + w);
+            definer.DefineWord(w);
         }
         marked.Clear();
+        words.Clear();
         Invoke(nameof(Spawn), uniques.Any() ? 2.5f : 0.3f);
     }
 
     IEnumerator CheckForEnd(TileBlock block)
     {
-        var points = block.tiles.Where(t => !t.isDecoration).Select(t => t.transform.position - transform.position).ToList();
+        var points = block.tiles.Where(t => !t.isDecoration).Select(t => t.transform.position - block.handOffset - transform.position).ToList();
         var origin = gridFirst.position;
         
         for (var y = 0; y < 8; y++)
@@ -77,6 +103,8 @@ public class Hand : MonoBehaviour
 
                 if(points.All(point => PointIsOk(point + p)))
                 {
+                    // points.ForEach(dp => Debug.DrawRay(dp + p, Vector3.up * 0.2f, Color.red, 2f));
+                    // Debug.Log("Found spot at " + x + ", " + y);
                     yield break;
                 }
 
@@ -95,9 +123,7 @@ public class Hand : MonoBehaviour
         var blockHere = Physics2D.OverlapCircle(p, 0.1f, blockMask);
 
         var ok = gridHere && !blockHere;
-        
-        // Debug.DrawRay(p, Vector3.up * 0.2f, ok ? Color.black : Color.white, 0.1f);
-        
+
         return ok;
     }
     
@@ -124,7 +150,7 @@ public class Hand : MonoBehaviour
                         yield return 0;
 
                         // BoomCards(start, len);
-                        
+                        words.Add(word);
                         marked.AddRange(tiles.GetRange(start, len));
 
                         found = true;
@@ -196,7 +222,7 @@ public class Hand : MonoBehaviour
         while (!edgeFound && safe < 100)
         {
             p += direction;
-            Debug.DrawRay(p, Vector3.up, Color.red, 3f);
+            // Debug.DrawRay(p, Vector3.up, Color.red, 3f);
             var go = Physics2D.OverlapCircle(p, 0.1f, blockMask);
             edgeFound = !go;
             if (go)

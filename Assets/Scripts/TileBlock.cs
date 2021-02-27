@@ -12,6 +12,7 @@ public class TileBlock : MonoBehaviour
     public LayerMask gridMask, hitMask;
     public SortingGroup sortingGroup;
     public List<float> angles;
+    public Vector3 handOffset;
 
     private bool holding;
     private Vector3 prevPos;
@@ -46,6 +47,8 @@ public class TileBlock : MonoBehaviour
     {
         theHand = hand;
         var angle = angles[Random.Range(0, angles.Count)];
+        handOffset = Quaternion.Euler(0, 0, angle) * handOffset;
+        transform.position += handOffset;
         transform.Rotate(new Vector3(0, 0, angle));
         tiles.ForEach(tile =>
         {
@@ -88,6 +91,7 @@ public class TileBlock : MonoBehaviour
     private void AfterMouseUp()
     {
         sortingGroup.sortingOrder = 0;
+        theHand.definer.appearer.Hide();
         theHand.ClearCheckMemory();
         tiles.Where(tile => !tile.isDecoration).ToList().ForEach(tile => theHand.Check(tile));
         theHand.StartWait();

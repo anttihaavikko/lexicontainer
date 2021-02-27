@@ -24,7 +24,6 @@ public class EffectCamera : MonoBehaviour
 	private float chromaSpeed = 1f;
     private float splitSpeed = 1f;
     private float colorAmount, colorSpeed = 1f;
-    private Vector3 originalPosition;
 
     private float shakeAmount = 0f, shakeTime = 0f;
     private float totalShakeTime;
@@ -49,7 +48,7 @@ public class EffectCamera : MonoBehaviour
             bulgeAmount = defaultLensDistortion = ld.intensity.value;
         }
 
-        originalPosition = transform.localPosition;
+        originalPos = virtualCamera.transform.position;
 
         camOriginalY = virtualCamera.transform.position.y;
     }
@@ -94,8 +93,9 @@ public class EffectCamera : MonoBehaviour
         }
         else
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, originalPosition, Time.deltaTime * 20f);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
+            var p = Vector3.MoveTowards(virtualCamera.transform.position, originalPos, Time.deltaTime * 10f);
+            var r = Quaternion.RotateTowards(virtualCamera.transform.rotation, Quaternion.identity, Time.deltaTime);
+            virtualCamera.ForceCameraPosition(p, r);
         }
     }
 

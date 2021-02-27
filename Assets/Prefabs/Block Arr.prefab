@@ -69,6 +69,7 @@ MonoBehaviour:
   angles:
   - 0
   - 90
+  handOffset: {x: 0, y: -0.5, z: 0}
 --- !u!210 &2543615288888471547
 SortingGroup:
   m_ObjectHideFlags: 0
