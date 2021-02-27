@@ -62,10 +62,12 @@ public class TileBlock : MonoBehaviour
         holding = false;
         SetOutlineColor(Color.white);
 
-        var ok = CheckValidity(false);
+        var ok = CheckValidity(false) && !CheckBlocking(false);
 
         if(ok)
         {
+            AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), transform.position, 1.5f);
+            
             tiles.ForEach(tile => tile.gameObject.layer = 7);
             
             var gridPos = Physics2D.OverlapCircleAll(transform.position, checkRadius, gridMask);
@@ -81,6 +83,10 @@ public class TileBlock : MonoBehaviour
         }
         
         Tweener.Instance.MoveTo(transform, prevPos, 0.15f, 0f, TweenEasings.BounceEaseOut);
+        this.StartCoroutine(() =>
+        {
+            AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), transform.position, 1f);
+        }, 0.15f);
     }
 
     private void SetOutlineColor(Color color)
@@ -109,6 +115,8 @@ public class TileBlock : MonoBehaviour
 
     public void Grab()
     {
+        AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), transform.position, 1f);
+        
         holding = true;
         HoverOut();
 

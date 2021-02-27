@@ -84,6 +84,9 @@ public class Hand : MonoBehaviour
             var w = words.OrderBy(_ => Random.value).First();
             Debug.Log("Random one: " + w);
             definer.DefineWord(w);
+
+            var soundPos = uniques.First().transform.position;
+            AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), soundPos, 2f);
         }
         marked.Clear();
         words.Clear();
