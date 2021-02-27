@@ -62,7 +62,7 @@ public class Hand : MonoBehaviour
         var pos = canAct ? position + Vector3.right * 5f : position;
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, pos, Quaternion.identity);
-        b.Setup(this, dict);
+        b.Setup(this, dict, position + b.handOffset);
         current = b;
 
         if (!canAct) return;

@@ -43,13 +43,14 @@ public class TileBlock : MonoBehaviour
         }
     }
 
-    public void Setup(Hand hand, WordDictionary dict)
+    public void Setup(Hand hand, WordDictionary dict, Vector3 handPos)
     {
         theHand = hand;
         var angle = angles[Random.Range(0, angles.Count)];
         handOffset = Quaternion.Euler(0, 0, angle) * handOffset;
         transform.position += handOffset;
         transform.Rotate(new Vector3(0, 0, angle));
+        prevPos = handPos;
         tiles.ForEach(tile =>
         {
             tile.transform.Rotate(new Vector3(0, 0, -angle));
