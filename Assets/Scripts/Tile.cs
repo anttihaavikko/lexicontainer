@@ -27,6 +27,7 @@ public class Tile : MonoBehaviour
     public void Boom(Color color)
     {
         letterText.color = color;
+        EffectManager.Instance.AddEffect(2, transform.position);
         Invoke(nameof(DoBoom), boomDelay);
     }
 
