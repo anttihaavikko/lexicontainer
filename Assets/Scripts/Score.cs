@@ -27,7 +27,7 @@ public class Score : MonoBehaviour
     {
         var scrollSpeed = Mathf.Max(10f, score - shownScore);
         shownScore = Mathf.MoveTowards(shownScore, score, Time.deltaTime * scrollSpeed * 2f);
-        display.text = ScoreString(score);
+        display.text = ScoreString(shownScore);
     }
 
     private void AddMulti()

@@ -136,7 +136,7 @@ public class Hand : MonoBehaviour
             AudioManager.Instance.PlayEffectAt(11, Vector3.zero, 0.5f);
             gameOver.Show();
             AudioManager.Instance.targetPitch = 0.8f;
-        }, 2f);
+        }, 1f);
     }
 
     private bool PointIsOk(Vector3 p)
