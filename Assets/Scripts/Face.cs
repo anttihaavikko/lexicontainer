@@ -51,6 +51,9 @@ public class Face : MonoBehaviour {
 
 	public bool followMouse = false;
     public Camera cam;
+    
+    public Transform openMouth;
+    private Vector3 openMouthSize;
 
 	// Use this for initialization
 	void Awake () {
@@ -76,6 +79,9 @@ public class Face : MonoBehaviour {
 		}
 
 		size = eyes[0].localScale.y;
+		
+		openMouthSize = openMouth.localScale;
+		openMouth.transform.localScale = Vector3.zero;
 	}
 
     private void Start()
@@ -264,5 +270,16 @@ public class Face : MonoBehaviour {
 
 			ChangeMouth (mouthHappy, new Vector3(1.3f, 1.1f, 1f), new Vector3(0, 0.1f, 0f));
 		}
+	}
+	
+	public void OpenMouth(float closeAfter)
+	{
+		Tweener.Instance.ScaleTo(openMouth, openMouthSize, 0.1f, 0, TweenEasings.BounceEaseOut);
+		Invoke(nameof(CloseMouth), closeAfter);
+	}
+
+	private void CloseMouth()
+	{
+		Tweener.Instance.ScaleTo(openMouth, Vector3.zero, 0.1f, 0, TweenEasings.QuadraticEaseOut);
 	}
 }

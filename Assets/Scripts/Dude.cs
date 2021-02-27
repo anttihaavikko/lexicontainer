@@ -16,6 +16,7 @@ public class Dude : MonoBehaviour
         this.StartCoroutine(() =>
         {
             AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), face.mouth.position, 2f);
+            face.OpenMouth(0.3f);
         }, 0.5f);
         
         Invoke(nameof(Hide), 0.8f);
