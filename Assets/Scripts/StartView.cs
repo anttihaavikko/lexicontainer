@@ -23,6 +23,13 @@ public class StartView : MonoBehaviour
         leaderboardScores.text = scoreManager.leaderBoardScoresString;
     }
 
+    public void ChangePage(int direction)
+    {
+        if (page + direction < 0 || direction > 0 && scoreManager.endReached) return;
+        page = Mathf.Max(page + direction, 0);
+        scoreManager.LoadLeaderBoards(page);
+    } 
+
     public void StartGame()
     {
         var scene = PlayerPrefs.HasKey("PlayerName") ? "Main" : "Name";

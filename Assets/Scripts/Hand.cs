@@ -97,8 +97,8 @@ public class Hand : MonoBehaviour
             var soundPos = uniques.First().transform.position;
             AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), soundPos, 2f);
             
-            AudioManager.Instance.targetPitch = 1.1f;
-            this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
+            // AudioManager.Instance.targetPitch = 1.1f;
+            // this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
 
         }
         marked.Clear();
