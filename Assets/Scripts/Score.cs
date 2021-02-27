@@ -18,11 +18,6 @@ public class Score : MonoBehaviour
 
     private int moves;
 
-    private void Start()
-    {
-        Debug.Log("Player is " + PlayerPrefs.GetString("PlayerName"));
-    }
-
     private void Update()
     {
         var scrollSpeed = Mathf.Max(10f, score - shownScore);

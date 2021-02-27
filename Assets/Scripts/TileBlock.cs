@@ -96,10 +96,15 @@ public class TileBlock : MonoBehaviour
 
     private void AfterMouseUp()
     {
+        
         sortingGroup.sortingOrder = 0;
         theHand.definer.appearer.Hide();
         theHand.ClearCheckMemory();
-        tiles.Where(tile => !tile.isDecoration).ToList().ForEach(tile => theHand.Check(tile));
+        tiles.Where(tile => !tile.isDecoration).ToList().ForEach(tile =>
+        {
+            tile.Pulse();
+            theHand.Check(tile);
+        });
         theHand.StartWait();
     }
 

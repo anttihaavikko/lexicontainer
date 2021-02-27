@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     public SpriteRenderer focus;
     public TMP_Text letterText;
     public static readonly float boomDelay = 2.5f;
+    public Pulsater letterPulsater;
 
     private string letter;
 
@@ -29,6 +30,12 @@ public class Tile : MonoBehaviour
         letterText.color = color;
         EffectManager.Instance.AddEffect(2, transform.position);
         Invoke(nameof(DoBoom), boomDelay);
+        letterPulsater.Pulsate();
+    }
+
+    public void Pulse()
+    {
+        EffectManager.Instance.AddEffect(3, transform.position);
     }
 
     private void DoBoom()
