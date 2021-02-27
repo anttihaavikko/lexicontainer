@@ -12,6 +12,7 @@ public class Hand : MonoBehaviour
     public Color green, red;
     public Transform gridFirst;
     public Appearer gameOver;
+    public EffectCamera cam;
 
     private List<float> columnsChecked, rowsChecked;
 
@@ -54,7 +55,11 @@ public class Hand : MonoBehaviour
         while (checks > 0) yield return 0;
         var uniques = marked.Distinct().ToList();
         score.Add(uniques.Count);
-        uniques.ForEach(tile => tile.Boom(green));
+        if (uniques.Any())
+        {
+            uniques.ForEach(tile => tile.Boom(green));
+            this.StartCoroutine(() => cam.BaseEffect(Mathf.Min(uniques.Count * 0.05f, 10f)), Tile.boomDelay);   
+        }
         marked.Clear();
         Invoke(nameof(Spawn), uniques.Any() ? 2.5f : 0.3f);
     }

@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     public List<GameObject> connectors;
     public SpriteRenderer focus;
     public TMP_Text letterText;
+    public static readonly float boomDelay = 2.5f;
 
     private string letter;
 
@@ -26,7 +27,7 @@ public class Tile : MonoBehaviour
     public void Boom(Color color)
     {
         letterText.color = color;
-        Invoke(nameof(DoBoom), 2.5f);
+        Invoke(nameof(DoBoom), boomDelay);
     }
 
     private void DoBoom()
@@ -35,7 +36,7 @@ public class Tile : MonoBehaviour
         EffectManager.Instance.AddEffect(0, p);
         var e = EffectManager.Instance.AddEffect(1, p);
         e.transform.Rotate(new Vector3(0, 0, Random.Range(0, 360f)));
-        
+
         connectors.ForEach(c => c.SetActive(false));
         gameObject.SetActive(false);
     }
