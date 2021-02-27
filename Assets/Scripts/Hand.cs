@@ -58,12 +58,16 @@ public class Hand : MonoBehaviour
 
     public void Spawn()
     {
+        var position = transform.position;
+        var pos = canAct ? position + Vector3.right * 5f : position;
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
-        var b = Instantiate(prefab, transform.position, Quaternion.identity);
+        var b = Instantiate(prefab, pos, Quaternion.identity);
         b.Setup(this, dict);
         current = b;
 
         if (!canAct) return;
+        
+        Tweener.Instance.MoveTo(b.transform, position + b.handOffset, 0.2f, 0f, TweenEasings.BounceEaseOut);
         
         DoEndCheck();
     }
