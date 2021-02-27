@@ -56,7 +56,7 @@ public class Hand : MonoBehaviour
         score.Add(uniques.Count);
         uniques.ForEach(tile => tile.Boom(green));
         marked.Clear();
-        Invoke(nameof(Spawn), uniques.Any() ? 1f : 0.1f);
+        Invoke(nameof(Spawn), uniques.Any() ? 1.5f : 0.1f);
     }
 
     IEnumerator CheckForEnd(TileBlock block)
