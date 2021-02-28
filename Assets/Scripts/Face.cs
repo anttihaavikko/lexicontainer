@@ -54,8 +54,9 @@ public class Face : MonoBehaviour {
     
     public Transform openMouth;
     private Vector3 openMouthSize;
+    private bool openInProgress;
 
-	// Use this for initialization
+    // Use this for initialization
 	void Awake () {
 
         cam = Camera.main;
@@ -274,6 +275,8 @@ public class Face : MonoBehaviour {
 	
 	public void OpenMouth(float closeAfter)
 	{
+		if (openInProgress) return;
+		openInProgress = true;
 		mouthSprite.enabled = false;
 		Tweener.Instance.ScaleTo(openMouth, openMouthSize, 0.1f, 0, TweenEasings.BounceEaseOut);
 		Invoke(nameof(CloseMouth), closeAfter);
@@ -282,6 +285,10 @@ public class Face : MonoBehaviour {
 	private void CloseMouth()
 	{
 		Tweener.Instance.ScaleTo(openMouth, Vector3.zero, 0.1f, 0, TweenEasings.QuadraticEaseOut);
-		this.StartCoroutine(() => mouthSprite.enabled = true, 0.1f);
+		this.StartCoroutine(() =>
+		{
+			mouthSprite.enabled = true;
+			openInProgress = false;
+		}, 0.1f);
 	}
 }

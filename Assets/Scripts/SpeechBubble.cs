@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class SpeechBubble : MonoBehaviour {
     private bool hidesWithAny = false;
     public Appearer appearer;
     public Transform soundPosition;
+    public Face face;
 
     public bool done = false;
 
@@ -81,6 +83,12 @@ public class SpeechBubble : MonoBehaviour {
 
             var hex = "#" + ColorUtility.ToHtmlStringRGB(hiliteColor);
             textArea.text = useColors ? msg.Replace("(", "<color=" + hex + ">").Replace(")", "</color>") : msg;
+
+            var vocals = new string[] {"a", "e", "i", "o", "u", "y"};
+            if (vocals.Contains(letter.ToLower()))
+            {
+	            face.OpenMouth(0.2f);
+            }
 
             if (messagePos == 1 || letter == " " && Random.value < 0.5f) {
 	            AudioManager.Instance.PlayEffectAt(Random.Range(12, 28), soundPosition.position, 3f);

@@ -11472,7 +11472,7 @@ Transform:
   m_GameObject: {fileID: 1149297360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.05453373, z: 0}
-  m_LocalScale: {x: 1.5602963, y: 1.5602963, z: 1.5602963}
+  m_LocalScale: {x: 0.9232585, y: 0.9232585, z: 0.9232585}
   m_Children: []
   m_Father: {fileID: 299721217}
   m_RootOrder: 0
@@ -13882,6 +13882,7 @@ MonoBehaviour:
   textArea: {fileID: 1300827085}
   appearer: {fileID: 1445498915}
   soundPosition: {fileID: 299721217}
+  face: {fileID: 604707865}
   done: 0
   hiliteColor: {r: 0.29411766, g: 0.7176471, b: 0.5921569, a: 1}
 --- !u!114 &1445498915
