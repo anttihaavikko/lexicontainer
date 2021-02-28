@@ -68,8 +68,12 @@ public class Hand : MonoBehaviour
         current = b;
 
         if (!canAct) return;
-        
-        Tweener.Instance.MoveTo(b.transform, position + b.handOffset, 0.2f, 0f, TweenEasings.BounceEaseOut);
+
+        var toPos = position + b.handOffset;
+        Tweener.Instance.MoveTo(b.transform, toPos, 0.2f, 0f, TweenEasings.BounceEaseOut);
+        AudioManager.Instance.PlayEffectAt(29, toPos, 1.804f);
+        AudioManager.Instance.PlayEffectAt(9, toPos, 1.094f);
+
         
         Invoke(nameof(DoEndCheck), 0.5f);
     }

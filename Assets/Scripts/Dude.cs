@@ -18,13 +18,13 @@ public class Dude : MonoBehaviour
 
     private void Start()
     {
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.HiScore));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.BigRound));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.HiScore));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.BigRound));
         
         ShowTutorial(Tutorial.Intro);
     }
@@ -80,7 +80,7 @@ public class Dude : MonoBehaviour
                 msg2 = string.Empty;
                 break;
             case Tutorial.BigRound:
-                msg1 = "Wow! That was a majestic play. You're really getting the hang of this.";
+                msg1 = "(Wow)! That was a (majestic play). You're really getting the hang of this.";
                 msg2 = string.Empty;
                 break;
             default:
@@ -150,6 +150,7 @@ public class Dude : MonoBehaviour
         t.position = new Vector3(x, down ? -5f : 5f, 0f);
         t.localScale = new Vector3(1f, down ? 1f : -1f, 1f);
         anim.SetBool(Show, true);
+        Invoke(nameof(MoveSound), 0.2f);
     }
 
     public void Hide()
@@ -158,6 +159,14 @@ public class Dude : MonoBehaviour
         
         willTutorial = false;
         anim.SetBool(Show, false);
+        Invoke(nameof(MoveSound), 0.2f);
+    }
+
+    public void MoveSound()
+    {
+        var position = transform.position;
+        AudioManager.Instance.PlayEffectAt(29, position, 1.804f);
+        AudioManager.Instance.PlayEffectAt(9, position, 1.094f);
     }
 
     public bool HasSomething()

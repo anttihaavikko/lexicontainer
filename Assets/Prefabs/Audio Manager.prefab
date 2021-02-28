@@ -206,4 +206,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d2d1eaab8169440eb859dd6c105596e6, type: 3}
   - {fileID: 8300000, guid: c40d3dbd45d1e41db947f0a48cdead09, type: 3}
   - {fileID: 8300000, guid: b363a167ff6e94dd9bc9e484e060e949, type: 3}
+  - {fileID: 8300000, guid: 5485079ccbcc74254b867b2e2543c6d7, type: 3}
   targetPitch: 1

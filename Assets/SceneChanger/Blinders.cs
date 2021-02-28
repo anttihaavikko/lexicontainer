@@ -31,9 +31,8 @@ public class Blinders : MonoBehaviour
 
         if (AudioManager.Instance)
         {
-            //AudioManager.Instance.PlayEffectAt(12, Vector3.zero, 1.107f);
-            //AudioManager.Instance.PlayEffectAt(14, Vector3.zero, 1.177f);
-            //AudioManager.Instance.PlayEffectAt(19, Vector3.zero, 1.348f);
+            AudioManager.Instance.PlayEffectAt(29, Vector3.zero, 1.804f);
+            AudioManager.Instance.PlayEffectAt(9, Vector3.zero, 1.094f);
         }
 
         Invoke("Clang", duration * 0.9f);
@@ -48,9 +47,8 @@ public class Blinders : MonoBehaviour
 
         if (AudioManager.Instance)
         {
-            //AudioManager.Instance.PlayEffectAt(12, Vector3.zero, 1.107f);
-            //AudioManager.Instance.PlayEffectAt(14, Vector3.zero, 1.177f);
-            //AudioManager.Instance.PlayEffectAt(19, Vector3.zero, 1.348f);
+            AudioManager.Instance.PlayEffectAt(29, Vector3.zero, 1.804f);
+            AudioManager.Instance.PlayEffectAt(9, Vector3.zero, 1.094f);
         }
 
         isOpen = true;
