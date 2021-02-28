@@ -15,6 +15,7 @@ public class SpeechBubble : MonoBehaviour {
 	private int messagePos = -1;
     private bool hidesWithAny = false;
     public Appearer appearer;
+    public Transform soundPosition;
 
     public bool done = false;
 
@@ -49,9 +50,9 @@ public class SpeechBubble : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    private void Update () {
 
-		if (Random.value < 0.2f) {
+		if (Random.value < 0.4f) {
 			return;
 		}
 
@@ -81,11 +82,9 @@ public class SpeechBubble : MonoBehaviour {
             var hex = "#" + ColorUtility.ToHtmlStringRGB(hiliteColor);
             textArea.text = useColors ? msg.Replace("(", "<color=" + hex + ">").Replace(")", "</color>") : msg;
 
-            if (messagePos == 1 || letter == " ") {
-				//AudioManager.Instance.PlayEffectAt(25, transform.position, 0.5f);
-				//AudioManager.Instance.PlayEffectAt(1, transform.position, 0.75f);
-				// AudioManager.Instance.PlayEffectAt(Random.Range(33, 43), transform.position, 7f);
-			}
+            if (messagePos == 1 || letter == " " && Random.value < 0.5f) {
+	            AudioManager.Instance.PlayEffectAt(Random.Range(12, 27), soundPosition.position, 3f);
+            }
 
 			if (messagePos >= message.Length) {
 				messagePos = -1;

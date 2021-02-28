@@ -47,6 +47,7 @@ public class Hand : MonoBehaviour
         if (Application.isEditor)
         {
             if(Input.GetKeyDown(KeyCode.Q)) DoEndCheck();
+            if(Input.GetKeyDown(KeyCode.R)) ToScene("Main");
         }
     }
 

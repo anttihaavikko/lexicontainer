@@ -13520,6 +13520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textArea: {fileID: 1300827085}
   appearer: {fileID: 1445498915}
+  soundPosition: {fileID: 299721217}
   done: 0
   hiliteColor: {r: 0.29411766, g: 0.7176471, b: 0.5921569, a: 1}
 --- !u!114 &1445498915

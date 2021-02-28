@@ -18,11 +18,11 @@ public class Dude : MonoBehaviour
 
     private void Start()
     {
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
-        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
+        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
         
         ShowTutorial(Tutorial.Intro);
     }
@@ -37,7 +37,7 @@ public class Dude : MonoBehaviour
         var tutorialName = GetTutorialName(tut);
         string msg1, msg2;
 
-        if (PlayerPrefs.HasKey(tutorialName)) return;
+        if (PlayerPrefs.HasKey(tutorialName) || willTutorial) return;
         
         // need word/min tutorial first
         var wordDone = PlayerPrefs.HasKey(GetTutorialName(Tutorial.Word));
