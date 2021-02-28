@@ -11,6 +11,8 @@ public class Score : MonoBehaviour
     public TMP_Text display, multi, addition;
     public Appearer additionAppearer;
     public ScoreManager scoreManager;
+
+    public const string HiScoreKey = "HiScore";
     
     private int score;
     private float shownScore;
@@ -45,6 +47,12 @@ public class Score : MonoBehaviour
 
     public void UploadScore()
     {
+        if (IsBest() || !PlayerPrefs.HasKey(HiScoreKey))
+        {
+            Debug.Log("New hi score, " + score);
+            PlayerPrefs.SetInt(HiScoreKey, score);
+        };
+        
         GenerateIdIfNeeded();
         scoreManager.SubmitScore(PlayerPrefs.GetString("PlayerName"), score, moves, PlayerPrefs.GetString("Identifier"));
     }
@@ -57,14 +65,14 @@ public class Score : MonoBehaviour
         }
     }
 
-    public void Add(int amount)
+    public int Add(int amount)
     {
         moves++;
         
         if (amount == 0)
         {
             AddMulti();
-            return;
+            return 0;
         }
         
         var amt = (int)Mathf.Pow(amount, 2) * multiplier;
@@ -78,6 +86,8 @@ public class Score : MonoBehaviour
             additionAppearer.Hide();
             ClearMulti();
         }, 2f);
+
+        return amt;
     }
 
     public static string ScoreString(float score)
@@ -85,5 +95,15 @@ public class Score : MonoBehaviour
         var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
         nfi.NumberGroupSeparator = " ";
         return score.ToString("#,0", nfi);
+    }
+
+    public bool IsBest()
+    {
+        if (PlayerPrefs.HasKey(HiScoreKey))
+        {
+            return score > PlayerPrefs.GetInt(HiScoreKey);
+        }
+
+        return false;
     }
 }

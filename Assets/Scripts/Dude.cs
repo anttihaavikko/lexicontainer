@@ -18,11 +18,13 @@ public class Dude : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
-        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
-        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
-        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
-        PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.HiScore));
+        // PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.BigRound));
         
         ShowTutorial(Tutorial.Intro);
     }
@@ -72,6 +74,14 @@ public class Dude : MonoBehaviour
             case Tutorial.MultiReset:
                 msg1 = "When you form a (word), your (multiplier) will (reset)!";
                 msg2 = "You can use this as kind of a (risk) vs. (reward) tactic!";
+                break;
+            case Tutorial.HiScore:
+                msg1 = "(Good), you're already (doing better) than your previous best!";
+                msg2 = string.Empty;
+                break;
+            case Tutorial.BigRound:
+                msg1 = "Wow! That was a majestic play. You're really getting the hang of this.";
+                msg2 = string.Empty;
                 break;
             default:
                 msg1 = string.Empty;
@@ -161,5 +171,7 @@ public enum Tutorial
     Word,
     Multiplier,
     Three,
-    MultiReset
+    MultiReset,
+    HiScore,
+    BigRound
 }

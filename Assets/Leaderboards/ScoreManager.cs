@@ -68,34 +68,11 @@ public class ScoreManager : MonoBehaviour {
 		get { return instance; }
 	}
 
-	public void CancelLeaderboards() {
-		StopAllCoroutines ();
-	}
-
-	public void LoadLeaderBoards(int p) {
-        //leaderBoardPositionsString = "LOADING...";
+    public void LoadLeaderBoards(int p) {
 		StartCoroutine(DoLoadLeaderBoards(p));
 	}
 
-	public LeaderBoard GetData()
-	{
-		return data;
-	}
-
-	public int GetValidatedScore()
-    {
-        LoadPrefs();
-
-        if((long)check != Secrets.GetVerificationNumber(playerName, score, 7)) {
-            score = 0;
-            check = (int)Secrets.GetVerificationNumber(playerName, 0, 7);
-            SavePrefs();
-        }
-
-        return (int)score;
-    }
-
-    IEnumerator DoLoadLeaderBoards(int p) {
+	private IEnumerator DoLoadLeaderBoards(int p) {
 
 		FlagManager.Instance.HideAllFlags ();
 
@@ -135,7 +112,7 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator DoFindPlayerRank() {
+	private IEnumerator DoFindPlayerRank() {
         var url = "https://games.sahaqiel.com/leaderboards/get-rank.php?score=" + score + "&name=" + playerName + "&pid=" + SystemInfo.deviceUniqueIdentifier + "&game=" + gameName;
         //Debug.Log(url);
         var www = UnityWebRequest.Get(url);
@@ -178,23 +155,16 @@ public class ScoreManager : MonoBehaviour {
 		return row;
 	}
 
-	void Awake() {
+	private void Awake() {
 		if (instance != null && instance != this) {
 			Destroy (this.gameObject);
 			return;
-		} else {
-			instance = this;
 		}
 
-		LoadPrefs ();
+		instance = this;
 
-        //DontDestroyOnLoad(instance.gameObject);
-
-        certHandler = new CustomCertificateHandler();
+		certHandler = new CustomCertificateHandler();
     }
-
-	void Update() {
-	}
 
 	public void SubmitScore(string entryName, long scoreSub, long levelSub, string id) {
         check = (int)Secrets.GetVerificationNumber(entryName, scoreSub, levelSub);
@@ -202,9 +172,8 @@ public class ScoreManager : MonoBehaviour {
         score = scoreSub;
         wave = levelSub;
         identifier = id;
-        SavePrefs();
-        //HudManager.Instance.namePromptLabel.text = "UPLOADING YOUR SCORE...";
-		StartCoroutine(DoSubmitScore());
+
+        StartCoroutine(DoSubmitScore());
     }
 
 	IEnumerator DoSubmitScore() {
@@ -231,36 +200,8 @@ public class ScoreManager : MonoBehaviour {
         onUploaded?.Invoke();
 
         uploading = false;
-        //HudManager.Instance.namePromptLabel.text = "SCORE UPLOADED!";
-        //HudManager.Instance.namePromptText.text = "PLAY AGAIN?";
-        //AudioManager.Instance.PlayEffectAt (AudioManager.BLING, Vector3.zero, 1f);
 
         FindPlayerRank();
-	}
-
-	private void LoadPrefs() {
-		if (PlayerPrefs.HasKey ("PlayerName")) {
-			playerName = PlayerPrefs.GetString ("PlayerName");
-			playerName = FixPlayerName (playerName);
-		}
-
-		if (PlayerPrefs.HasKey ("HiScore")) {
-			int oldScore = PlayerPrefs.GetInt ("HiScore");
-            score = long.Parse(PlayerPrefs.GetString("HiScore"));
-		}
-
-        if (PlayerPrefs.HasKey("HiScore"))
-        {
-            check = PlayerPrefs.GetInt("CheckNumber");
-        }
-
-        //Debug.Log("loaded: " + playerName + ", " + score + ", " + check);
-	}
-
-	private void SavePrefs() {
-		PlayerPrefs.SetString ("PlayerName", playerName);
-		PlayerPrefs.SetString ("HiScore", score.ToString());
-        PlayerPrefs.SetInt("CheckNumber", (int)Secrets.GetVerificationNumber(playerName, score, 7));
 	}
 
 	private string FixPlayerName(string str) {

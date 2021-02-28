@@ -40,6 +40,7 @@ public class Hand : MonoBehaviour
             if (!dude || !dude.HasSomething()) Spawn();
         }, 1f);
 
+        // Debug.Log(PlayerPrefs.GetInt(Score.HiScoreKey));
     }
 
     private void Update()
@@ -95,7 +96,7 @@ public class Hand : MonoBehaviour
     {
         while (checks > 0) yield return 0;
         var uniques = marked.Distinct().ToList();
-        score.Add(uniques.Count);
+        var addition = score.Add(uniques.Count);
         if (uniques.Any())
         {
             uniques.ForEach(tile => tile.Boom(green));
@@ -125,6 +126,16 @@ public class Hand : MonoBehaviour
             {
                 dude.ShowTutorial(Tutorial.Multiplier);
                 dude.ShowTutorial(Tutorial.Three);
+            }
+            
+            if (addition > 200)
+            {
+                dude.ShowTutorial(Tutorial.BigRound);
+            }
+            
+            if (score.IsBest())
+            {
+                dude.ShowTutorial(Tutorial.HiScore);
             }
 
             if (!dude.HasSomething())
