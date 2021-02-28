@@ -84,7 +84,7 @@ public class SpeechBubble : MonoBehaviour {
             var hex = "#" + ColorUtility.ToHtmlStringRGB(hiliteColor);
             textArea.text = useColors ? msg.Replace("(", "<color=" + hex + ">").Replace(")", "</color>") : msg;
 
-            var vocals = new string[] {"a", "e", "i", "o", "u", "y"};
+            var vocals = new[] {"a", "e", "i", "o", "u", "y"};
             if (vocals.Contains(letter.ToLower()))
             {
 	            face.OpenMouth(0.2f);

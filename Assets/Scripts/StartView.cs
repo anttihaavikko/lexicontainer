@@ -13,13 +13,15 @@ public class StartView : MonoBehaviour
     private int page;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         scoreManager.onLoaded += ScoresLoaded;
         scoreManager.LoadLeaderBoards(page);
 
         wotd.text = dict.RandomWord();
     }
+
+    
 
     private void ScoresLoaded()
     {
