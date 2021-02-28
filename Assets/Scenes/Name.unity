@@ -427,7 +427,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 0.6392157, g: 0.8509804, b: 1, a: 1}
   m_Text: 
   m_CaretBlinkRate: 0.85
-  m_CaretWidth: 1
+  m_CaretWidth: 5
   m_ReadOnly: 0
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

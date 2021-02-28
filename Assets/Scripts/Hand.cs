@@ -110,7 +110,7 @@ public class Hand : MonoBehaviour
             var veryNiceWords = new string[] {
                 "sex", "tit", "ass", "poo", "bum", "rod", "tool", "piss", "pee", 
                 "fart", "boob", "simp", "tits", "dick", "dicks", "cum", "boob", "boobs", "sexy", "tittie", "titty",
-                "titties", "nut", "nuts"
+                "titties", "nut", "nuts", "porn"
             };
             dude.NiceAt(-soundPos.x, soundPos.y > 0, words.Intersect(veryNiceWords).Any());
 
