@@ -16,6 +16,7 @@ public class Dude : MonoBehaviour
 
     private bool showing;
     private bool willTutorial;
+    private static readonly int Thumb = Animator.StringToHash("thumb");
 
     private void Start()
     {
@@ -136,7 +137,7 @@ public class Dude : MonoBehaviour
 
     public void NiceAt(float x, bool down, bool veryNice = false)
     {
-        ShowAt(x, down);
+        ShowAt(x, down, veryNice);
         
         this.StartCoroutine(() =>
         {
@@ -148,11 +149,12 @@ public class Dude : MonoBehaviour
         Invoke(nameof(Hide), veryNice ? 1.2f : 0.8f);
     }
 
-    public void ShowAt(float x, bool down)
+    public void ShowAt(float x, bool down, bool thumb = false)
     {
         var t = transform;
         t.position = new Vector3(x, down ? -5f : 5f, 0f);
         t.localScale = new Vector3(1f, down ? 1f : -1f, 1f);
+        anim.SetBool(Thumb, thumb);
         anim.SetBool(Show, true);
         Invoke(nameof(MoveSound), 0.2f);
     }
@@ -162,6 +164,7 @@ public class Dude : MonoBehaviour
         if (willTutorial) hand.Spawn();
         
         willTutorial = false;
+        anim.SetBool(Thumb, false);
         anim.SetBool(Show, false);
         Invoke(nameof(MoveSound), 0.2f);
     }
