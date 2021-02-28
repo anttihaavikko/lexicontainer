@@ -20,17 +20,6 @@ public class Dude : MonoBehaviour
 
     private void Start()
     {
-        // if (Application.isEditor)
-        // {
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Intro));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Three));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Word));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.Multiplier));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.MultiReset));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.HiScore));
-        //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.BigRound));   
-        // }
-
         if(main) ShowTutorial(Tutorial.Intro);
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,6 @@ public class StartView : MonoBehaviour
 
     private int page;
     
-    // Start is called before the first frame update
     private void Start()
     {
         scoreManager.onLoaded += ScoresLoaded;
@@ -21,7 +21,15 @@ public class StartView : MonoBehaviour
         wotd.text = dict.RandomWord();
     }
 
-    
+    private void Update()
+    {
+        if (Application.isEditor && Input.GetKeyDown(KeyCode.D))
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetString("Identifier", "a09c0a94-0f76-42e7-94da-198400d86fe8");
+            SceneChanger.Instance.ChangeScene("Start");
+        }
+    }
 
     private void ScoresLoaded()
     {
