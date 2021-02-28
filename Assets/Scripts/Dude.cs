@@ -167,6 +167,9 @@ public class Dude : MonoBehaviour
         var position = transform.position;
         AudioManager.Instance.PlayEffectAt(29, position, 1.804f);
         AudioManager.Instance.PlayEffectAt(9, position, 1.094f);
+        
+        if(Random.value < 0.5f)
+            AudioManager.Instance.PlayEffectAt(Random.Range(12, 28), face.mouthSprite.transform.position, 2f);
     }
 
     public bool HasSomething()
