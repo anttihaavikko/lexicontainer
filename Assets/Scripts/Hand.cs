@@ -38,7 +38,7 @@ public class Hand : MonoBehaviour
         this.StartCoroutine(() =>
         {
             if (!dude || !dude.HasSomething()) Spawn();
-        }, 1f);
+        }, dude ? 1f : 0f);
 
         // Debug.Log(PlayerPrefs.GetInt(Score.HiScoreKey));
     }
