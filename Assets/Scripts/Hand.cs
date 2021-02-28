@@ -184,6 +184,7 @@ public class Hand : MonoBehaviour
             AudioManager.Instance.PlayEffectAt(11, Vector3.zero, 0.5f);
             gameOver.Show();
             AudioManager.Instance.targetPitch = 0.8f;
+            cam.BaseEffect(0.5f);
         }, 0.7f);
     }
 
