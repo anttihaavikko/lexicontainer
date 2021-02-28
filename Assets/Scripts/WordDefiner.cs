@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using Random = UnityEngine.Random;
 
 public class WordDefiner : MonoBehaviour
 {
@@ -35,11 +36,11 @@ public class WordDefiner : MonoBehaviour
         var def = JsonUtility.FromJson<DefinitionData>(json);
 
         if (def.words.Length == 0) yield break;
-        var w = def.words[0];
+        var w = def.words[Random.Range(0, def.words.Length)];
         if (w.meanings.Length == 0) yield break;
-        var meaning = def.words[0].meanings[0];
+        var meaning = w.meanings[Random.Range(0, w.meanings.Length)];
         if (meaning.definitions.Length == 0) yield break;
-        field.text = w.word + ", " + meaning.partOfSpeech + ", " + meaning.definitions[0].definition;
+        field.text = w.word + ", " + meaning.partOfSpeech + ", " + meaning.definitions[Random.Range(0, meaning.definitions.Length)].definition;
         appearer.Show();
     }
 }
