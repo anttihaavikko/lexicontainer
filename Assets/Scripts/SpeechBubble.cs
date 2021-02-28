@@ -83,7 +83,7 @@ public class SpeechBubble : MonoBehaviour {
             textArea.text = useColors ? msg.Replace("(", "<color=" + hex + ">").Replace(")", "</color>") : msg;
 
             if (messagePos == 1 || letter == " " && Random.value < 0.5f) {
-	            AudioManager.Instance.PlayEffectAt(Random.Range(12, 27), soundPosition.position, 3f);
+	            AudioManager.Instance.PlayEffectAt(Random.Range(12, 28), soundPosition.position, 3f);
             }
 
 			if (messagePos >= message.Length) {

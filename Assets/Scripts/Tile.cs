@@ -27,6 +27,11 @@ public class Tile : MonoBehaviour
 
     public void Boom(Color color)
     {
+        var p = transform.position;
+        const float vol = 0.4f;
+        AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), p, 1.1f * vol);
+        AudioManager.Instance.PlayEffectAt(10, p, 0.6f * vol);
+        
         letterText.color = color;
         EffectManager.Instance.AddEffect(2, transform.position);
         Invoke(nameof(DoBoom), boomDelay);
