@@ -130,17 +130,18 @@ public class Dude : MonoBehaviour
         Hide();
     }
 
-    public void NiceAt(float x, bool down)
+    public void NiceAt(float x, bool down, bool veryNice = false)
     {
         ShowAt(x, down);
         
         this.StartCoroutine(() =>
         {
-            AudioManager.Instance.PlayEffectAt(Random.Range(0, 4), face.mouth.position, 2f);
+            var idx = veryNice ? 28 : Random.Range(0, 4);
+            AudioManager.Instance.PlayEffectAt(idx, face.mouth.position, 2f);
             face.OpenMouth(0.3f);
         }, 0.5f);
         
-        Invoke(nameof(Hide), 0.8f);
+        Invoke(nameof(Hide), veryNice ? 1.2f : 0.8f);
     }
 
     public void ShowAt(float x, bool down)

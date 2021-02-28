@@ -107,7 +107,12 @@ public class Hand : MonoBehaviour
             definer.DefineWord(w);
 
             var soundPos = uniques.First().transform.position;
-            dude.NiceAt(-soundPos.x, soundPos.y > 0);
+            var veryNiceWords = new string[] {
+                "sex", "tit", "ass", "poo", "bum", "rod", "tool", "piss", "pee", 
+                "fart", "boob", "simp", "tits", "dick", "dicks", "cum", "boob", "boobs", "sexy", "tittie", "titty",
+                "titties", "nut", "nuts"
+            };
+            dude.NiceAt(-soundPos.x, soundPos.y > 0, words.Intersect(veryNiceWords).Any());
 
             // AudioManager.Instance.targetPitch = 1.1f;
             // this.StartCoroutine(() => AudioManager.Instance.targetPitch = 1f, 0.75f);
