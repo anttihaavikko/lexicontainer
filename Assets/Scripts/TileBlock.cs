@@ -50,7 +50,7 @@ public class TileBlock : MonoBehaviour
         handOffset = Quaternion.Euler(0, 0, angle) * handOffset;
         transform.position += handOffset;
         transform.Rotate(new Vector3(0, 0, angle));
-        prevPos = handPos;
+        prevPos = handPos + handOffset;
         tiles.ForEach(tile =>
         {
             tile.transform.Rotate(new Vector3(0, 0, -angle));

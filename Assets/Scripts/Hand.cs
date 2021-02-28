@@ -64,11 +64,10 @@ public class Hand : MonoBehaviour
         var pos = canAct ? position + Vector3.right * 5f : position;
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
         var b = Instantiate(prefab, pos, Quaternion.identity);
-        b.Setup(this, dict, position + b.handOffset);
+        b.Setup(this, dict, position);
         current = b;
 
         if (!canAct) return;
-
         var toPos = position + b.handOffset;
         Tweener.Instance.MoveTo(b.transform, toPos, 0.2f, 0f, TweenEasings.BounceEaseOut);
         AudioManager.Instance.PlayEffectAt(29, toPos, 1.804f);
