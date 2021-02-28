@@ -10,6 +10,7 @@ public class Dude : MonoBehaviour
     public Face face;
     public SpeechBubble bubble;
     public Hand hand;
+    public bool main;
 
     private static readonly int Show = Animator.StringToHash("show");
 
@@ -29,7 +30,7 @@ public class Dude : MonoBehaviour
         //     PlayerPrefs.DeleteKey(GetTutorialName(Tutorial.BigRound));   
         // }
 
-        ShowTutorial(Tutorial.Intro);
+        if(main) ShowTutorial(Tutorial.Intro);
     }
 
     private static string GetTutorialName(Tutorial tut)
