@@ -113,9 +113,17 @@ public class SpeechBubble : MonoBehaviour {
 		textArea.text = useColors ? message.Replace("(", "<color=" + hex + ">").Replace(")", "</color>") : message;;
 	}
 
+	private void DoSound()
+	{
+		var position = transform.position;
+		AudioManager.Instance.PlayEffectAt(29, position, 1.804f);
+		AudioManager.Instance.PlayEffectAt(9, position, 1.094f);
+	}
+
     public void ShowMessage(string str, bool colors = true)
     {
 	    appearer.Show();
+	    DoSound();
 	    
         hidesWithAny = false;
         
@@ -164,6 +172,7 @@ public class SpeechBubble : MonoBehaviour {
 	public void Hide()
 	{
 		appearer.Hide();
+		DoSound();
 
         //AudioManager.Instance.Highpass (false);
 
