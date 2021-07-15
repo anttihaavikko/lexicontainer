@@ -17,9 +17,11 @@ public class Dude : MonoBehaviour
     private bool showing;
     private bool willTutorial;
     private static readonly int Thumb = Animator.StringToHash("thumb");
-
+    private float verticalPos;
+    
     private void Start()
     {
+        verticalPos = transform.position.y;
         if(main) ShowTutorial(Tutorial.Intro);
     }
 
@@ -141,7 +143,7 @@ public class Dude : MonoBehaviour
     public void ShowAt(float x, bool down, bool thumb = false)
     {
         var t = transform;
-        t.position = new Vector3(x, down ? -5f : 5f, 0f);
+        t.position = new Vector3(x, down ? verticalPos : -verticalPos, 0f);
         t.localScale = new Vector3(1f, down ? 1f : -1f, 1f);
         anim.SetBool(Thumb, thumb);
         anim.SetBool(Show, true);

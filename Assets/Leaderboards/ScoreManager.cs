@@ -186,7 +186,7 @@ public class ScoreManager : MonoBehaviour {
 		data += "," + check;
         data += "," + gameName;
 
-        // Debug.Log(webURL + data);
+        Debug.Log(webURL + data);
 
         var www = UnityWebRequest.Get(webURL + data);
         www.certificateHandler = certHandler;
