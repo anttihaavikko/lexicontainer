@@ -14,9 +14,11 @@ public class CustomButton : Button
 
     private Color color;
     private Camera cam;
+    private ButtonExtension extension;
 
     protected override void Start()
     {
+        extension = GetComponent<ButtonExtension>();
         cam = Camera.main;
         base.Start();
     }
@@ -25,11 +27,13 @@ public class CustomButton : Button
     {
         color = text.color;
         text.color = img.color = Color.white;
+        if(extension) extension.SetColor(Color.white);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         text.color = img.color = color;
+        if(extension) extension.SetColor(color);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
@@ -39,5 +43,6 @@ public class CustomButton : Button
         AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), p, 1.1f * vol);
         AudioManager.Instance.PlayEffectAt(10, p, 0.6f * vol);
         base.OnPointerClick(eventData);
+        if(extension) extension.Toggle();
     }
 }
