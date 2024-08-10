@@ -26,7 +26,7 @@ public class WordDictionary : MonoBehaviour
         words = file.text.Split('\n').Select(w => {
             var word = w.Trim().ToLower();
             return word.Split('\t')[0];
-        }).Distinct().ToDictionary(x => x, x => x);
+        }).Where(w => w.Length > 2).Distinct().ToDictionary(x => x, x => x);
 
         Debug.Log("Loaded dictionary of " + words.Count + " words.");
 
