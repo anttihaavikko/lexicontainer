@@ -1,21 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
 	private static Manager instance = null;
-	public static Manager Instance {
-		get { return instance; }
-	}
+	public static Manager Instance => instance;
+	
+	public int Seed { get; set; }
+	public DateTime Day { get; set; } = DateTime.Today;
+	
+	public string DailyString => Day.ToString("MMM dd yyyy", new CultureInfo("en-US"));
 
-	void Awake() {
+	void Awake()
+	{
 		if (instance != null && instance != this) {
 			Destroy (this.gameObject);
 			return;
-		} else {
-			instance = this;
 		}
+
+		instance = this;
+		DontDestroyOnLoad(this);
 	}
 }

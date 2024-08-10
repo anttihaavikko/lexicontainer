@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StartView : MonoBehaviour
 {
@@ -10,15 +11,19 @@ public class StartView : MonoBehaviour
     public TMP_Text leaderboardNames, leaderboardScores;
     public TMP_Text wotd;
     public WordDictionary dict;
+    [SerializeField] private TMP_Text modeDescription;
+    [SerializeField] private List<ModeToggle> modeToggles;
+    [SerializeField] private TMP_Text leaderboardTitle;
+    [SerializeField] private GameObject dayNext, dayPrev;
 
     private int page;
     
     private void Start()
     {
         scoreManager.onLoaded += ScoresLoaded;
-        scoreManager.LoadLeaderBoards(page);
-
-        wotd.text = dict.RandomWord();
+        // scoreManager.LoadLeaderBoards(page);
+        wotd.text = $"Word of the day is <size=5>{dict.RandomWord().ToUpper()}</size>!";
+        modeToggles[(int)ModeToggle.GetMode()].Select();
     }
 
     private void Update()
@@ -53,5 +58,30 @@ public class StartView : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void SelectMode()
+    {
+        // Manager.Instance.Day = DateTime.Today;
+        Setup();
+    }
+
+    private void Setup()
+    {
+        page = 0;
+        var mode = ModeToggle.GetMode();
+        scoreManager.ChangeGame(ModeToggle.GetLeaderboard(mode, Manager.Instance.Day), true);
+        modeDescription.text = ModeToggle.GetDescription(mode);
+        Manager.Instance.Seed = mode == GameMode.Daily ? ModeToggle.GetSeed(Manager.Instance.Day) : Environment.TickCount;
+        leaderboardTitle.text = mode == GameMode.Daily ? $"LEADERBOARDS <size=25>({Manager.Instance.DailyString})</size>" : "LEADERBOARDS";
+        dayNext.SetActive(mode == GameMode.Daily);
+        dayPrev.SetActive(mode == GameMode.Daily);
+    }
+
+    public void ChangeDay(int dir)
+    {
+        if (dir > 0 && Manager.Instance.Day >= DateTime.Today) return; 
+        Manager.Instance.Day = Manager.Instance.Day.AddDays(dir);
+        Setup();
     }
 }

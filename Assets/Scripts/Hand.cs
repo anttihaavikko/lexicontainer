@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
     private TileBlock current;
 
     private List<string> words;
+    private int pulls;
 
     private void Start()
     {
@@ -60,6 +61,12 @@ public class Hand : MonoBehaviour
 
     public void Spawn()
     {
+        if (canAct)
+        {
+            Random.InitState(Manager.Instance.Seed);
+            Random.InitState(Random.Range(0, 999999) + pulls);    
+        }
+        
         var position = transform.position;
         var pos = canAct ? position + Vector3.right * 5f : position;
         var prefab = blockPrefabs[Random.Range(0, blockPrefabs.Count)];
@@ -73,6 +80,7 @@ public class Hand : MonoBehaviour
         AudioManager.Instance.PlayEffectAt(29, toPos, 1.804f);
         AudioManager.Instance.PlayEffectAt(9, toPos, 1.094f);
 
+        pulls++;
         
         Invoke(nameof(DoEndCheck), 0.5f);
     }

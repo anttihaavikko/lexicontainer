@@ -54,6 +54,7 @@ public class Score : MonoBehaviour
         };
         
         GenerateIdIfNeeded();
+        scoreManager.ChangeGame(ModeToggle.GetLeaderboard(ModeToggle.GetMode(), Manager.Instance.Day), false);
         scoreManager.SubmitScore(PlayerPrefs.GetString("PlayerName"), score, moves, PlayerPrefs.GetString("Identifier"));
     }
 

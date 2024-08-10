@@ -45,4 +45,9 @@ public class CustomButton : Button
         base.OnPointerClick(eventData);
         if(extension) extension.Toggle();
     }
+
+    public void SetColor(Color c)
+    {
+        color = c;
+    }
 }

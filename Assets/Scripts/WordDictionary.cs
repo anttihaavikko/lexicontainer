@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WordDictionary : MonoBehaviour
 {
-    public TextAsset dictionaryFile;
+    public TextAsset dictionaryFile, freshDictionary;
 
 	private Dictionary<string, string> words;
     private List<string> letterPool;
@@ -22,7 +22,8 @@ public class WordDictionary : MonoBehaviour
 
     void Prep()
     {
-        words = dictionaryFile.text.Split('\n').Select(w => {
+        var file = ModeToggle.IsClassic() ? dictionaryFile : freshDictionary;
+        words = file.text.Split('\n').Select(w => {
             var word = w.Trim().ToLower();
             return word.Split('\t')[0];
         }).Distinct().ToDictionary(x => x, x => x);

@@ -68,6 +68,12 @@ public class ScoreManager : MonoBehaviour {
 		get { return instance; }
 	}
 
+	public void ChangeGame(string to, bool load)
+	{
+		gameName = to;
+		if (load) LoadLeaderBoards(0);
+	}
+
     public void LoadLeaderBoards(int p) {
 		StartCoroutine(DoLoadLeaderBoards(p));
 	}

@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: wowie
-  perPage: 10
+  perPage: 0
   leaderBoardString: 
   localScoreString: 
   leaderBoardPositionsString: 
@@ -6842,6 +6842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dictionaryFile: {fileID: 4900000, guid: b15dd197e874946eaa2c81b007a9634c, type: 3}
+  freshDictionary: {fileID: 4900000, guid: 5ba5cc5a21eed4450903133885d307c0, type: 3}
 --- !u!114 &691733151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17374,7 +17375,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5986842, y: 1}
+    m_SensorSize: {x: 1.5993377, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
