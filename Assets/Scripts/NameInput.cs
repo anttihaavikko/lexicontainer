@@ -11,6 +11,7 @@ public class NameInput : MonoBehaviour
 
     private void Start()
     {
+        field.text = "Anon";
         field.onValueChanged.AddListener(ToUpper);
         Invoke(nameof(FocusInput), 0.6f);
     }
