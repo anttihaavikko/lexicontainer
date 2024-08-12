@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,7 @@ public class Hand : MonoBehaviour
     public WordDefiner definer;
     public bool canAct = true;
     public Dude dude;
+    public TMP_Text wordList;
 
     private List<float> columnsChecked, rowsChecked;
 
@@ -112,6 +114,8 @@ public class Hand : MonoBehaviour
         {
             uniques.ForEach(tile => tile.Boom(green));
             this.StartCoroutine(() => cam.BaseEffect(Mathf.Min(uniques.Count * 0.05f, 10f)), Tile.boomDelay);
+            
+            wordList.text = string.Join(", ", words.Distinct().Select(w => w.ToUpper()));
 
             var w = words.OrderBy(_ => Random.value).First();
             // Debug.Log("Random one: " + w);
