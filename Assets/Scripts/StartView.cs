@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class StartView : MonoBehaviour
@@ -15,21 +16,46 @@ public class StartView : MonoBehaviour
     [SerializeField] private List<ModeToggle> modeToggles;
     [SerializeField] private TMP_Text leaderboardTitle;
     [SerializeField] private GameObject dayNext, dayPrev;
+    [SerializeField] private CanvasScaler canvasScaler;
+    [SerializeField] private Transform nonCanvasElems;
+    [SerializeField] private GameObject mobileHalftones;
+    [SerializeField] private Transform mainTitle;
+    [SerializeField] private DudeDemoer demoer;
 
     private int page;
+    private bool landscape;
     
     private void Start()
     {
+        ChangeLayout();
         scoreManager.onLoaded += ScoresLoaded;
         // scoreManager.LoadLeaderBoards(page);
         wotd.text = $"Word of the day is <size=5>{dict.RandomWord().ToUpper()}</size>!";
         var mode = ModeToggle.GetMode();
-        modeToggles[mode is GameMode.Fresh or GameMode.Daily ? 0 : 1].Select();
-        modeToggles[mode is GameMode.Daily or GameMode.ClassicDaily ? 2 : 3].Select();
+        modeToggles[mode is GameMode.Fresh or GameMode.Daily ? 0 : 1].Select(false);
+        modeToggles[mode is GameMode.Daily or GameMode.ClassicDaily ? 2 : 3].Select(true);
+    }
+
+    private void ChangeLayout()
+    {
+        landscape = IsLandscape();
+        canvasScaler.referenceResolution = landscape ? new Vector2(800, 600) : new Vector2(500, 800);
+        canvasScaler.matchWidthOrHeight = landscape ? 1 : 0;
+        // nonCanvasElems.position = new Vector3(0, landscape ? 0 : -0.95f, 0);
+        nonCanvasElems.localScale = Vector3.one * (landscape ? 1 : 0.6f);
+        mobileHalftones.SetActive(!landscape);
+        mainTitle.localScale = Vector3.one * (landscape ? 1 : 0.75f);
+        demoer.min = landscape ? 3.5f : 0;
+        demoer.max = landscape ? 7f : 1.5f;
     }
 
     private void Update()
     {
+        if (landscape != IsLandscape())
+        {
+            ChangeLayout();
+        }
+        
         if (Application.isEditor && Input.GetKeyDown(KeyCode.D))
         {
             PlayerPrefs.DeleteAll();
@@ -53,8 +79,12 @@ public class StartView : MonoBehaviour
 
     public static string GetMainScene()
     {
-        var ratio = Screen.width / Screen.height;
-        return ratio > 1 ? "Main" : "Mobile";
+        return IsLandscape() ? "Main" : "Mobile";
+    }
+
+    private static bool IsLandscape()
+    {
+        return Screen.width * 1f / Screen.height > 1;
     }
 
     public void StartGame()

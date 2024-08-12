@@ -38,11 +38,16 @@ public class ModeToggle : MonoBehaviour
 
     public void Select()
     {
+        Select(true);
+    }
+
+    public void Select(bool propagate)
+    {
         onSelect.Invoke(true);
         others.ForEach(o => o.Deselect());
         button.SetColor(onColor);
         transform.localScale = Vector3.one * 1.2f;
-        startView.SelectMode();
+        if(propagate) startView.SelectMode();
         button.OnPointerExit(null);
     }
 
