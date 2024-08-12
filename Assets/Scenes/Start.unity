@@ -833,6 +833,7 @@ MonoBehaviour:
   definer: {fileID: 0}
   canAct: 0
   dude: {fileID: 0}
+  wordList: {fileID: 0}
 --- !u!212 &214557868
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   definer: {fileID: 0}
   canAct: 0
   dude: {fileID: 0}
+  wordList: {fileID: 0}
 --- !u!212 &615608803
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2122,7 +2124,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5993377, y: 1}
+    m_SensorSize: {x: 1.7782516, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2201,6 +2203,7 @@ MonoBehaviour:
   definer: {fileID: 0}
   canAct: 0
   dude: {fileID: 0}
+  wordList: {fileID: 0}
 --- !u!212 &738319248
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3056,7 +3059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb962bd9e59f4fe2b2222175735b0fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dictionaryFile: {fileID: 4900000, guid: b15dd197e874946eaa2c81b007a9634c, type: 3}
+  dictionaryFile: {fileID: 4900000, guid: 2693c64e9d52f4b1db9e05dfb174b55c, type: 3}
   freshDictionary: {fileID: 4900000, guid: 5ba5cc5a21eed4450903133885d307c0, type: 3}
 --- !u!4 &899207606
 Transform:
@@ -6050,6 +6053,7 @@ MonoBehaviour:
   definer: {fileID: 0}
   canAct: 0
   dude: {fileID: 0}
+  wordList: {fileID: 0}
 --- !u!212 &1824380659
 SpriteRenderer:
   m_ObjectHideFlags: 0

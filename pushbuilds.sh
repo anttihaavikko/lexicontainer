@@ -3,14 +3,14 @@ NC='\033[0m' # No Color
 
 echo " "
 
-# echo "${COLOR}Pushing build for OSX${NC}"
-# butler push Builds/osx anttihaavikko/lexicontainer:osx --fix-permissions
+echo "${COLOR}Pushing build for OSX${NC}"
+butler push Builds/osx anttihaavikko/lexicontainer:osx --fix-permissions
 
-# echo "${COLOR}Pushing build for Windows${NC}"
-# butler push Builds/win anttihaavikko/lexicontainer:win --fix-permissions
+echo "${COLOR}Pushing build for Windows${NC}"
+butler push Builds/win anttihaavikko/lexicontainer:win --fix-permissions
 
-# echo "${COLOR}Pushing build for Linux${NC}"
-# butler push Builds/linux anttihaavikko/lexicontainer:linux
+echo "${COLOR}Pushing build for Linux${NC}"
+butler push Builds/linux anttihaavikko/lexicontainer:linux
 
 echo "${COLOR}Pushing build for HTML5${NC}"
 butler push Builds/html5 anttihaavikko/lexicontainer:html5
