@@ -9,6 +9,7 @@ public class HoverChecker : MonoBehaviour
     public LayerMask blockMask;
     public TileBlock heldBlock;
     public Texture2D defaultCursor, handCursor, grabCursor;
+    [SerializeField] private Hand hand;
 
     private Camera cam;
     private TileBlock hoveredBlock;
@@ -22,23 +23,29 @@ public class HoverChecker : MonoBehaviour
 
     private void Update()
     {
-        var radius = 0.3f;
-        Vector3 mp = Input.mousePosition;
+        const float radius = 0.3f;
+        var mp = Input.mousePosition;
         mp.z = 10f;
-        Vector3 mouseInWorld = cam.ScreenToWorldPoint(mp);
+        var mouseInWorld = cam.ScreenToWorldPoint(mp);
 
         if (heldBlock && Input.GetMouseButtonUp(0))
         {
             Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
-            heldBlock.Drop();
-
-            var colliders = heldBlock.GetComponents<Collider2D>();
-            var contactFilter = new ContactFilter2D();
-            contactFilter.useTriggers = true;
-            contactFilter.SetLayerMask(blockMask);
-            contactFilter.useLayerMask = true;
+            var placed = heldBlock.Drop();
 
             heldBlock = null;
+
+            if (placed) hand.ClearCurrent();
+        }
+
+        if (hand && Input.GetMouseButtonDown(0))
+        {
+            heldBlock = hand.GetCurrent();
+            if (heldBlock)
+            {
+                heldBlock.Grab();
+                return;   
+            }
         }
 
         var blockHits = Physics2D.OverlapCircleAll(mouseInWorld, radius, blockMask);

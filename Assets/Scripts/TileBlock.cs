@@ -58,7 +58,7 @@ public class TileBlock : MonoBehaviour
         });
     }
 
-    public void Drop()
+    public bool Drop()
     {
         holding = false;
         SetOutlineColor(Color.white);
@@ -80,7 +80,7 @@ public class TileBlock : MonoBehaviour
             Tweener.Instance.MoveTo(transform, snapPos, 0.12f, 0f, TweenEasings.BounceEaseOut);
 
             Invoke("AfterMouseUp", 0.12f);
-            return;
+            return true;
         }
         
         Tweener.Instance.MoveTo(transform, prevPos, 0.15f, 0f, TweenEasings.BounceEaseOut);
@@ -88,6 +88,8 @@ public class TileBlock : MonoBehaviour
         {
             AudioManager.Instance.PlayEffectAt(Random.Range(4, 8), transform.position, 1f);
         }, 0.15f);
+
+        return false;
     }
 
     private void SetOutlineColor(Color color)

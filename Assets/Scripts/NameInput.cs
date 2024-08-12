@@ -68,6 +68,6 @@ public class NameInput : MonoBehaviour
     {
         if (string.IsNullOrEmpty(field.text)) return;
         PlayerPrefs.SetString("PlayerName", field.text);
-        SceneChanger.Instance.ChangeScene("Main");
+        SceneChanger.Instance.ChangeScene(StartView.GetMainScene());
     }
 }

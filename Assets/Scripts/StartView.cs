@@ -49,11 +49,17 @@ public class StartView : MonoBehaviour
         if (page + direction < 0 || direction > 0 && scoreManager.endReached) return;
         page = Mathf.Max(page + direction, 0);
         scoreManager.LoadLeaderBoards(page);
-    } 
+    }
+
+    public static string GetMainScene()
+    {
+        var ratio = Screen.width / Screen.height;
+        return ratio > 1 ? "Main" : "Mobile";
+    }
 
     public void StartGame()
     {
-        var scene = PlayerPrefs.HasKey("PlayerName") ? "Main" : "Name";
+        var scene = PlayerPrefs.HasKey("PlayerName") ? GetMainScene() : "Name";
         SceneChanger.Instance.ChangeScene(scene);
     }
 

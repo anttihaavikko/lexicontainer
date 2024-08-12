@@ -87,6 +87,16 @@ public class Hand : MonoBehaviour
         Invoke(nameof(DoEndCheck), 0.5f);
     }
 
+    public TileBlock GetCurrent()
+    {
+        return current;
+    }
+
+    public void ClearCurrent()
+    {
+        current = null;
+    }
+
     private void DoEndCheck()
     {
         if (endCheck != null) StopCoroutine(endCheck);
