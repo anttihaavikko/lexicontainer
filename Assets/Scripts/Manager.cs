@@ -9,6 +9,9 @@ public class Manager : MonoBehaviour {
 	public int Seed { get; set; }
 	public DateTime Day { get; set; } = DateTime.Today;
 	
+	public bool Daily { get; set; }
+	public bool Classic { get; set; }
+	
 	public string DailyString => Day.ToString("MMM dd yyyy", new CultureInfo("en-US"));
 
 	void Awake()

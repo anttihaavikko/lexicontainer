@@ -12,6 +12,8 @@ public class CustomButton : Button
     public TMP_Text text;
     public Image img;
 
+    public Action<bool> onHover;
+
     private Color color;
     private Camera cam;
     private ButtonExtension extension;
@@ -28,12 +30,14 @@ public class CustomButton : Button
         color = text.color;
         text.color = img.color = Color.white;
         if(extension) extension.SetColor(Color.white);
+        onHover?.Invoke(true);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         text.color = img.color = color;
         if(extension) extension.SetColor(color);
+        onHover?.Invoke(false);
     }
 
     public override void OnPointerClick(PointerEventData eventData)

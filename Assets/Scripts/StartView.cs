@@ -23,7 +23,9 @@ public class StartView : MonoBehaviour
         scoreManager.onLoaded += ScoresLoaded;
         // scoreManager.LoadLeaderBoards(page);
         wotd.text = $"Word of the day is <size=5>{dict.RandomWord().ToUpper()}</size>!";
-        modeToggles[(int)ModeToggle.GetMode()].Select();
+        var mode = ModeToggle.GetMode();
+        modeToggles[mode is GameMode.Fresh or GameMode.Daily ? 0 : 1].Select();
+        modeToggles[mode is GameMode.Daily or GameMode.ClassicDaily ? 2 : 3].Select();
     }
 
     private void Update()
@@ -70,12 +72,12 @@ public class StartView : MonoBehaviour
     {
         page = 0;
         var mode = ModeToggle.GetMode();
+        var isDaily = Manager.Instance.Daily;
         scoreManager.ChangeGame(ModeToggle.GetLeaderboard(mode, Manager.Instance.Day), true);
-        modeDescription.text = ModeToggle.GetDescription(mode);
-        Manager.Instance.Seed = mode == GameMode.Daily ? ModeToggle.GetSeed(Manager.Instance.Day) : Environment.TickCount;
-        leaderboardTitle.text = mode == GameMode.Daily ? $"LEADERBOARDS <size=25>({Manager.Instance.DailyString})</size>" : "LEADERBOARDS";
-        dayNext.SetActive(mode == GameMode.Daily);
-        dayPrev.SetActive(mode == GameMode.Daily);
+        Manager.Instance.Seed = isDaily ? ModeToggle.GetSeed(Manager.Instance.Day) : Environment.TickCount;
+        leaderboardTitle.text = isDaily ? $"LEADERBOARDS <size=25>({Manager.Instance.DailyString})</size>" : "LEADERBOARDS";
+        dayNext.SetActive(isDaily);
+        dayPrev.SetActive(isDaily);
     }
 
     public void ChangeDay(int dir)
