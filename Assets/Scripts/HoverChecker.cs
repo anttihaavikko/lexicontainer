@@ -35,7 +35,7 @@ public class HoverChecker : MonoBehaviour
 
             heldBlock = null;
 
-            if (placed) hand.ClearCurrent();
+            if (placed && hand) hand.ClearCurrent();
         }
 
         if (hand && Input.GetMouseButtonDown(0))
@@ -60,7 +60,7 @@ public class HoverChecker : MonoBehaviour
                 prev.HoverOut();
             }
 
-            if(hoveredBlock)
+            if(hoveredBlock && !heldBlock)
             {
                 hoveredBlock.HoverIn();
                 
